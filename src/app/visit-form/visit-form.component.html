@@ -1,0 +1,25 @@
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit(bottomSheetForm)">
+    <mat-card class="mat-elevation-z0">
+      <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [max]="today" #date name="date" [(ngModel)]="data.visit.date" placeholder="Fecha" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput #diagnostic name="diagnostic" [(ngModel)]="data.visit.diagnostic" placeholder="Diagnóstico" required></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput #treatment name="treatment" [(ngModel)]="data.visit.treatment" placeholder="Tratamiento"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput #studies name="studies" [(ngModel)]="data.visit.studies" placeholder="Estudios"></textarea>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
+        <button type="button" mat-raised-button color="warn" (click)="dismissBottomSheet()">Cancelar</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
