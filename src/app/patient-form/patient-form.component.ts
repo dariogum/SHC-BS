@@ -22,11 +22,12 @@ export class PatientFormComponent implements OnInit {
     this.bottomSheetRef.dismiss({
       bottomSheet: 'patient',
       form: bottomSheetForm,
-      message: 'El paciente fue creado correctamente'
+      message: 'El paciente fue registrado correctamente'
     });
   }
 
-  dismissBottomSheet() {
+  dismissBottomSheet(bottomSheetForm: NgForm) {
+    bottomSheetForm.resetForm();
     this.bottomSheetRef.dismiss({
       bottomSheet: 'patient'
     });

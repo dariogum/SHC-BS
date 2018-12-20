@@ -1,0 +1,42 @@
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit(bottomSheetForm)">
+    <mat-card class="mat-elevation-z0">
+      <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [max]="today" #date name="date" [(ngModel)]="data.vitalSignsRecord.date"
+            placeholder="Fecha" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" #bloodPressure name="bloodPressure" [(ngModel)]="data.vitalSignsRecord.bloodPressure"
+            placeholder="Tensión arterial" maxlength="7" required>
+          <mat-hint align="start">Ej: 120/80</mat-hint>
+          <mat-hint align="end">Caracteres utilizados: {{bloodPressure.value.length}} de 7</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" min="0" #heartRate name="heartRate" [(ngModel)]="data.vitalSignsRecord.heartRate"
+            placeholder="Frecuencia cardíaca" maxlength="3">
+          <span matSuffix>pulsaciones por minuto</span>
+          <mat-hint align="end">Números utilizados: {{heartRate.value.length}} de 3</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" #temperature name="temperature" [(ngModel)]="data.vitalSignsRecord.temperature"
+            placeholder="Temperatura" maxlength="4">
+          <span matSuffix>°C</span>
+          <mat-hint align="end">Caracteres utilizados: {{temperature.value.length}} de 4</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="number" min="0" #breathingFrequency name="breathingFrequency" [(ngModel)]="data.vitalSignsRecord.breathingFrequency"
+            placeholder="Frecuencia respiratoria" maxlength="2">
+          <span matSuffix>r.p.m.</span>
+          <mat-hint align="end">Números utilizados: {{breathingFrequency.value.length}} de 2</mat-hint>
+        </mat-form-field>
+      </mat-card-content>
+  
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
+        <button type="button" mat-raised-button color="warn" (click)="dismissBottomSheet(bottomSheetForm)">Cancelar</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>

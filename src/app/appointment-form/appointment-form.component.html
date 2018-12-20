@@ -1,0 +1,44 @@
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit(bottomSheetForm)">
+  <mat-card class="mat-elevation-z0">
+    <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="text" #patient name="patient" placeholder="Paciente" aria-label="Paciente" [(ngModel)]="data.appointment.patient"
+          [matAutocomplete]="auto" (keyup)="filterPatients($event)" required>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let patient of filteredPatients" [value]="patient">
+            {{patient.lastname}} {{patient.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select #professional name="professional" [(ngModel)]="data.appointment.professional" placeholder="Profesional" required>
+          <mat-option *ngFor="let professional of professionals" [value]="professional">{{professional.lastname}} {{professional.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" [min]="today" #date name="date" [(ngModel)]="data.appointment.date"
+          placeholder="Fecha" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" #hour name="hour" [(ngModel)]="data.appointment.hour" placeholder="Hora" maxlength="5"
+          pattern="\d{2}:\d{2}" required>
+        <span matSuffix>hs.</span>
+        <mat-hint align="start">Ej: 10:15</mat-hint>
+        <mat-hint align="end">Caracteres utilizados: {{hour.value.length}} de 5</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput #indications name="indications" [(ngModel)]="data.appointment.indications" placeholder="Indicaciones"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
+      <button type="button" mat-icon-button class="close-button" (click)="dismissBottomSheet(bottomSheetForm)">
+        <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

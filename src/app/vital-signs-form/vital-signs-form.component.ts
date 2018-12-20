@@ -4,15 +4,15 @@ import { MatBottomSheetRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-visit-form',
-  templateUrl: './visit-form.component.html',
-  styleUrls: ['./visit-form.component.css']
+  selector: 'app-vital-signs-form',
+  templateUrl: './vital-signs-form.component.html',
+  styleUrls: ['./vital-signs-form.component.css']
 })
-export class VisitFormComponent implements OnInit {
+export class VitalSignsFormComponent implements OnInit {
   today = new Date();
 
   constructor(
-    private bottomSheetRef: MatBottomSheetRef<VisitFormComponent>,
+    private bottomSheetRef: MatBottomSheetRef<VitalSignsFormComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) { }
 
@@ -21,16 +21,16 @@ export class VisitFormComponent implements OnInit {
 
   onSubmit(bottomSheetForm: NgForm) {
     this.bottomSheetRef.dismiss({
-      bottomSheet: 'visit',
+      bottomSheet: 'vitalSigns',
       form: bottomSheetForm,
-      message: 'La visita fue registrada correctamente'
+      message: 'Los signos vitales fueron registrados correctamente'
     });
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
     bottomSheetForm.resetForm();
     this.bottomSheetRef.dismiss({
-      bottomSheet: 'visit'
+      bottomSheet: 'vitalSigns'
     });
   }
 
