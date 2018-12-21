@@ -1,6 +1,14 @@
-<button mat-button (click)="openPatientBottomSheet()">Paciente</button>
-<button mat-button (click)="openVisitBottomSheet()">Visita</button>
-<button mat-button (click)="openVaccineApplicationBottomSheet()">Aplicación de una vacuna</button>
-<button mat-button (click)="openVitalSignsBottomSheet()">Signos vitales</button>
-<button mat-button (click)="openScheduleBottomSheet()">Agenda</button>
-<button mat-button (click)="openAppointmentBottomSheet()">Turno</button>
+<mat-sidenav-container>
+  <mat-sidenav [fixedInViewport]="true" [mode]="over" [(opened)]="appService.sidenavOpened" position="end">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/patientList" routerLinkActive="active"><mat-icon>people</mat-icon>&nbsp;Pacientes</a>
+      <a mat-list-item routerLink="/appointmentList" routerLinkActive="active"><mat-icon>event_note</mat-icon>&nbsp;Turnos</a>
+      <a mat-list-item routerLink="/scheduleList" routerLinkActive="active"><mat-icon>list_alt</mat-icon>&nbsp;Agendas</a>
+      <a mat-list-item routerLink="/userList" routerLinkActive="active"><mat-icon>people_outline</mat-icon>&nbsp;Usuarios</a>
+      <a mat-list-item routerLink="/" routerLinkActive="active"><mat-icon>exit_to_app</mat-icon>&nbsp;Cerrar sesión</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

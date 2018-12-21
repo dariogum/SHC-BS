@@ -35,7 +35,7 @@ export class VaccineApplicationFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.vaccineApplication = { id: null, date: new Date(), age: null, vaccine: null, dose: null };
     this.bottomSheetRef.dismiss({
       bottomSheet: 'vaccineApplication'
     });

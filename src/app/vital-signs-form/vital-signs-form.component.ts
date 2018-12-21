@@ -28,7 +28,7 @@ export class VitalSignsFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.vitalSignsRecord = { id: null, date: new Date(), bloodPressure: null, heartRate: null, temperature: null, breathingFrequency: null };    
     this.bottomSheetRef.dismiss({
       bottomSheet: 'vitalSigns'
     });

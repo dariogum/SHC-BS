@@ -53,7 +53,7 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.appointment = { id: null, schedule: null, date: new Date(), hour: null, proffesional: null, patient: null, indications: null };
     this.bottomSheetRef.dismiss({
       bottomSheet: 'appointment'
     });

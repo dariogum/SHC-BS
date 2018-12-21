@@ -27,7 +27,7 @@ export class PatientFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.patient = { id: null, lastname: null, name: null, newborn: false, documentType: null, documentNumber: null, vaccinations: [] };
     this.bottomSheetRef.dismiss({
       bottomSheet: 'patient'
     });

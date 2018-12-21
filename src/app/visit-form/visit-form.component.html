@@ -52,7 +52,9 @@
 
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
-      <button type="button" mat-raised-button color="warn" (click)="dismissBottomSheet(bottomSheetForm)">Cancelar</button>
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet(bottomSheetForm)">
+        <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
+      </button>
     </mat-card-actions>
   </mat-card>
 </form>

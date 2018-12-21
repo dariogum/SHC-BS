@@ -27,7 +27,7 @@ export class ScheduleFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.schedule = { id: null, name: null, periodicity: null };
     this.bottomSheetRef.dismiss({
       bottomSheet: 'schedule'
     });

@@ -36,7 +36,19 @@
 
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
-      <button type="button" mat-icon-button class="close-button" (click)="dismissBottomSheet(bottomSheetForm)">
+      <button type="button" mat-icon-button color="accent" *ngIf="!data.appointment.confirmed && data.appointment.id" matTooltip="Confirmar">
+        <mat-icon aria-label="Confirmar">check_circle_outline</mat-icon>
+      </button>
+      <button type="button" mat-icon-button *ngIf="data.appointment.id" matTooltip="Imprimir">
+        <mat-icon aria-label="Imprimir">print</mat-icon>
+      </button>
+      <button type="button" mat-icon-button color="primary" *ngIf="data.appointment.id" matTooltip="Reprogramar">
+        <mat-icon aria-label="Reprogramar">update</mat-icon>
+      </button>
+      <button type="button" mat-icon-button color="warn" *ngIf="data.appointment.id" matTooltip="Cancelar">
+        <mat-icon aria-label="Cancelar">cancel</mat-icon>
+      </button>
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet(bottomSheetForm)">
         <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
       </button>
     </mat-card-actions>

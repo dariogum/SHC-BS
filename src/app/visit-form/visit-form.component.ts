@@ -28,7 +28,7 @@ export class VisitFormComponent implements OnInit {
   }
 
   dismissBottomSheet(bottomSheetForm: NgForm) {
-    bottomSheetForm.resetForm();
+    this.data.visit = { id: null, date: new Date(), diagnostic: null, treatment: null, studies: null };
     this.bottomSheetRef.dismiss({
       bottomSheet: 'visit'
     });
