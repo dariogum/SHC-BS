@@ -7,6 +7,7 @@ import { AppService } from './../app.service';
   styleUrls: ['./appointment-list.component.css']
 })
 export class AppointmentListComponent implements OnInit {
+  filters = [];
   date = new Date();
   newAppointment = { id: null, schedule: null, date: new Date(), hour: null, professional: null, patient: null, indications: null };
   data = {

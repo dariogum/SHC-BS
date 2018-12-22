@@ -1,8 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-mat-form-field { margin-bottom: 8px; width: 100%; }
-mat-tab-body { padding-top: 16px; }
-mat-list-item:hover { box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12); cursor: pointer; }
-.toolbar-spacer { flex: 1 1 auto; }
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-sidenav {
+    width: 200px;
+}
+
+mat-form-field {
+    margin: 0 8px 8px;
+}
+
+.web mat-form-field {
+    width: calc(25% - 16px);
+}
+
+.tablet mat-form-field,
+.web mat-form-field.half-width {
+    width: calc(50% - 16px);
+}
+
+mat-bottom-sheet-container mat-form-field,
+.handset mat-form-field,
+.tablet mat-form-field.full-width,
+.web mat-form-field.full-width {
+    width: calc(100% - 16px);
+}
+
+mat-tab-body {
+    padding-top: 16px;
+}
+
+mat-list-item:hover {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    cursor: pointer;
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}

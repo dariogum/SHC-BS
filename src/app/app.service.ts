@@ -11,6 +11,7 @@ import { VitalSignsFormComponent } from './vital-signs-form/vital-signs-form.com
   providedIn: 'root'
 })
 export class AppService {
+  layout = 'web';
   sidenavOpened = false;
 
   appointment = { id: null, schedule: 1, date: new Date(), hour: null, proffesional: null, patient: null, indications: null };
@@ -32,9 +33,9 @@ export class AppService {
       disableClose: true
     });
 
-    bottomSheetRef.afterDismissed().subscribe(data => {
-      if (data && data.message) {
-        this.snackBar.open(data.message, 'OK', { duration: 2000 });
+    bottomSheetRef.afterDismissed().subscribe(bottomSheetData => {
+      if (bottomSheetData && bottomSheetData.message) {
+        this.snackBar.open(bottomSheetData.message, 'OK', { duration: 2000 });
       }
     });
   }
@@ -70,6 +71,10 @@ export class AppService {
   }
 
   toggleSidenav() {
-    this.sidenavOpened =! this.sidenavOpened;
+    this.sidenavOpened = ! this.sidenavOpened;
+  }
+
+  setLayout(layout: string) {
+    this.layout = layout;
   }
 }

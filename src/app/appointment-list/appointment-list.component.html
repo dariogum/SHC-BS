@@ -23,6 +23,14 @@
       <mat-datepicker touchUi #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field>
+      <mat-select name="filter" [(ngModel)]="filters" placeholder="Filtros" multiple>
+        <mat-option [value]="1">Confirmados</mat-option>
+        <mat-option [value]="2">No confirmados</mat-option>
+        <mat-option [value]="3">Recordatorio no enviado</mat-option>
+        <mat-option [value]="4">Reprogramados</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width">
       <mat-label>Buscar un turno</mat-label>
       <input matInput #search placeholder="Por ejemplo: Juan Perez o 10:45">
       <mat-icon *ngIf="!search.value" matSuffix>search</mat-icon>

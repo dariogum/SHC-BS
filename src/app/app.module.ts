@@ -34,7 +34,7 @@ import { AppointmentFormComponent } from './appointment-form/appointment-form.co
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 
 const appRoutes: Routes = [
-  { path: 'appointmentList', component: AppointmentListComponent },
+  { path: 'appointments', component: AppointmentListComponent },
 ];
 
 @NgModule({

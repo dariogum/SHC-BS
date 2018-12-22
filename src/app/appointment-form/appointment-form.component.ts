@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 
 export interface Patient {
   id: number;
-  lastname: string
+  lastname: string;
   name: string;
 }
 

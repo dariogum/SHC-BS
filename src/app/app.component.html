@@ -1,14 +1,33 @@
 <mat-sidenav-container>
   <mat-sidenav [fixedInViewport]="true" [mode]="over" [(opened)]="appService.sidenavOpened" position="end">
+    <mat-card class="mat-elevation-z0">
+      <mat-card-header>
+        <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        <mat-card-title>Usuario Identificado</mat-card-title>
+        <mat-card-subtitle>Administrador</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
     <mat-nav-list>
-      <a mat-list-item routerLink="/patientList" routerLinkActive="active"><mat-icon>people</mat-icon>&nbsp;Pacientes</a>
-      <a mat-list-item routerLink="/appointmentList" routerLinkActive="active"><mat-icon>event_note</mat-icon>&nbsp;Turnos</a>
-      <a mat-list-item routerLink="/scheduleList" routerLinkActive="active"><mat-icon>list_alt</mat-icon>&nbsp;Agendas</a>
-      <a mat-list-item routerLink="/userList" routerLinkActive="active"><mat-icon>people_outline</mat-icon>&nbsp;Usuarios</a>
-      <a mat-list-item routerLink="/" routerLinkActive="active"><mat-icon>exit_to_app</mat-icon>&nbsp;Cerrar sesión</a>
+      <a mat-list-item routerLink="/patients" routerLinkActive="active">
+        <mat-icon>people</mat-icon>&nbsp;Pacientes
+      </a>
+      <a mat-list-item routerLink="/appointments" routerLinkActive="active">
+        <mat-icon>event_note</mat-icon>&nbsp;Turnos
+      </a>
+      <a mat-list-item routerLink="/schedules" routerLinkActive="active">
+        <mat-icon>list_alt</mat-icon>&nbsp;Agendas
+      </a>
+      <a mat-list-item routerLink="/users" routerLinkActive="active">
+        <mat-icon>people_outline</mat-icon>&nbsp;Usuarios
+      </a>
+      <a mat-list-item routerLink="/" routerLinkActive="active">
+        <mat-icon>exit_to_app</mat-icon>&nbsp;Cerrar sesión
+      </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content [ngClass]="appService.layout">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
