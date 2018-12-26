@@ -20,31 +20,34 @@
       </mat-select>
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Fecha" [(ngModel)]="date" (dateChange)="readAppointments()" required>
+      <input matInput [matDatepicker]="picker" placeholder="Fecha" [(ngModel)]="date" (dateChange)="readAppointments()"
+        required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-label>Buscar un turno</mat-label>
-      <input matInput #search placeholder="Por ejemplo: Juan Perez o 10:45" (keyup)="search($event.target.value)">
-      <mat-icon *ngIf="!search.value" matSuffix>search</mat-icon>
-      <button type="button" mat-icon-button *ngIf="search.value" aria-label="Limpiar la búsqueda" (click)="search.value=''"
+      <input matInput #searchInput placeholder="Por ejemplo: Juan Perez o 10:45" (keyup)="search($event.target.value)">
+      <mat-icon *ngIf="!searchInput.value" matSuffix>search</mat-icon>
+      <button type="button" mat-icon-button *ngIf="searchInput.value" aria-label="Limpiar la búsqueda" (click)="searchInput.value=''"
         matTooltip="Limpiar la búsqueda" matSuffix>
         <mat-icon>clear</mat-icon>
       </button>
-      <mat-hint *ngIf="search.value.length < 3">Ingrese al menos 3 caracteres</mat-hint>
+      <mat-hint *ngIf="searchInput.value.length < 1">Ingrese al menos 1 caracter</mat-hint>
       <mat-hint *ngIf="searching">Buscando...</mat-hint>
       <mat-hint align="end" *ngIf="appointments">{{appointments.length}} turnos encontrados</mat-hint>
     </mat-form-field>
     <h4 *ngIf="!schedule" style="text-align: center;">Seleccione una agenda para ver sus turnos</h4>
     <h4 *ngIf="!date" style="text-align: center;">Seleccione una fecha para ver sus turnos</h4>
-    <mat-list>
+    <h4 *ngIf="schedule && date && !appointments.length" style="text-align: center;">No hay turnos registrados aún</h4>
+    <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
       <mat-list-item *ngFor="let appointment of appointments" (click)="openAppointmentBottomSheet(appointment)">
         <mat-icon matListIcon [color]="appointment.confirmed ? 'primary' : 'warn'" [matTooltip]="appointment.confirmed ? 'Confirmado' : 'No confirmado'">event</mat-icon>
         <h3 matLine>Paciente: <span class="mat-body-2">{{appointment.patient.lastname}} {{appointment.patient.name}}</span></h3>
         <p matLine>Hora: <span class="mat-body-2">{{appointment.hour}}</span></p>
         <p matLine>Profesional: <span class="mat-body-2">{{appointment.professional.lastname}}
             {{appointment.professional.name}}</span></p>
+        <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
   </mat-card-content>

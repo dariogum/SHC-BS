@@ -82,4 +82,12 @@ export class AppointmentService {
   delete(appointment: Appointment): Observable<{}> {
     return this.http.delete(`appointments/${appointment.id}`, httpOptions);
   }
+
+  search(term: string): Observable<Appointment[]> {
+    term = term.trim().toLowerCase();
+    if (term.length) {
+      return this.http.get<Appointment[]>(`appointments/search/${term}`);
+    }
+    return of([new Appointment]);
+  }
 }

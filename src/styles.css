@@ -13,7 +13,7 @@ mat-sidenav {
     width: 200px;
 }
 
-mat-form-field {
+mat-form-field, mat-checkbox {
     margin: 0 8px 8px;
 }
 
@@ -44,4 +44,9 @@ mat-list-item:hover {
 
 .toolbar-spacer {
     flex: 1 1 auto;
+}
+
+.mat-select-disabled .mat-select-value,
+.mat-input-element:disabled {
+    color: rgba(0,0,0,.87);
 }

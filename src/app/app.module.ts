@@ -27,16 +27,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { AppointmentFormComponent, AppointmentCancelComponent } from './appointments/appointment-form/appointment-form.component';
 import { AppointmentFiltersComponent } from './appointments/appointment-list/appointment-list.component';
-import { PatientFormComponent } from './patient-form/patient-form.component';
-import { VisitFormComponent } from './visit-form/visit-form.component';
-import { VaccineApplicationFormComponent } from './vaccine-application-form/vaccine-application-form.component';
-import { VitalSignsFormComponent } from './vital-signs-form/vital-signs-form.component';
-import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+import { PatientFormComponent } from './patients/patient-form/patient-form.component';
+import { VisitFormComponent, VisitDeleteComponent } from './visits/visit-form/visit-form.component';
+import { VaccineApplicationFormComponent } from './vaccinations/vaccine-application-form/vaccine-application-form.component';
+import { VitalSignsFormComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
+import { ScheduleFormComponent } from './schedules/schedule-form/schedule-form.component';
 
 const appRoutes: Routes = [
-  { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' }
+  { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' },
+  { path: 'patients', loadChildren: './patients/patients.module#PatientsModule' }
 ];
 
 @NgModule({
@@ -48,6 +50,7 @@ const appRoutes: Routes = [
     PatientFormComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
+    VisitDeleteComponent,
     VisitFormComponent,
     VitalSignsFormComponent,
   ],
@@ -88,6 +91,7 @@ const appRoutes: Routes = [
     PatientFormComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
+    VisitDeleteComponent,
     VisitFormComponent,
     VitalSignsFormComponent,
   ],

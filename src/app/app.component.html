@@ -10,19 +10,19 @@
       </mat-card-content>
     </mat-card>
     <mat-nav-list>
-      <a mat-list-item routerLink="/patients" routerLinkActive="active">
+      <a mat-list-item routerLink="/patients" (click)="appService.toggleSidenav()">
         <mat-icon>people</mat-icon>&nbsp;Pacientes
       </a>
-      <a mat-list-item routerLink="/appointments" routerLinkActive="active">
+      <a mat-list-item routerLink="/appointments" (click)="appService.toggleSidenav()">
         <mat-icon>event_note</mat-icon>&nbsp;Turnos
       </a>
-      <a mat-list-item routerLink="/schedules" routerLinkActive="active">
+      <a mat-list-item routerLink="/schedules" (click)="appService.toggleSidenav()">
         <mat-icon>list_alt</mat-icon>&nbsp;Agendas
       </a>
-      <a mat-list-item routerLink="/users" routerLinkActive="active">
+      <a mat-list-item routerLink="/users" (click)="appService.toggleSidenav()">
         <mat-icon>people_outline</mat-icon>&nbsp;Usuarios
       </a>
-      <a mat-list-item routerLink="/" routerLinkActive="active">
+      <a mat-list-item routerLink="/" (click)="appService.toggleSidenav()">
         <mat-icon>exit_to_app</mat-icon>&nbsp;Cerrar sesión
       </a>
     </mat-nav-list>

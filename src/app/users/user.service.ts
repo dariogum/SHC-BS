@@ -7,14 +7,14 @@ const httpOptions = {
 };
 
 export interface User {
-  id: number;
-  name: string;
-  lastname: string;
-  role: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
   active: boolean;
+  createdAt: Date;
+  id: number;
+  lastname: string;
+  name: string;
+  password: string;
+  role: string;
+  updatedAt: Date;
 }
 
 export const USERS: User[] = [
@@ -49,8 +49,26 @@ export class UserService {
     private http: HttpClient
   ) { }
 
+  create(user: User): Observable<User> {
+    return this.http.post<User>(`users`, user, httpOptions);
+  }
+
+  read(id: number): Observable<User> {
+    if (id) {
+      return this.http.get<User>(`users/${id}`);
+    }
+  }
+
   readAll(): Observable<User[]> {
     // return this.http.get<User[]>(`users`);
     return of(USERS);
+  }
+
+  update(user: User): Observable<User> {
+    return this.http.put<User>(`users`, user, httpOptions);
+  }
+
+  delete(user: User): Observable<{}> {
+    return this.http.delete(`users/${user.id}`, httpOptions);
   }
 }

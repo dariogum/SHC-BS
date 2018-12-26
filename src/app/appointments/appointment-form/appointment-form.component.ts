@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_BOTTOM_SHEET_DATA } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { MatBottomSheetRef } from '@angular/material';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { Appointment, AppointmentService } from './../appointment.service';
-import { Patient } from './../../patients/patient.service';
+import { Patient, PATIENTS } from './../../patients/patient.service';
+import { USERS } from './../../users/user.service';
+import { SCHEDULES } from './../../schedules/schedule.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -12,22 +13,18 @@ import { Patient } from './../../patients/patient.service';
   styleUrls: ['./appointment-form.component.css']
 })
 export class AppointmentFormComponent implements OnInit {
-  today = new Date();
-  patients: Patient[] = [
-    { id: 1, lastname: 'Apellido1', name: 'Nombre1' },
-    { id: 2, lastname: 'Apellido2', name: 'Nombre2' }
-  ];
   filteredPatients: Patient[];
-  professionals = [
-    { id: 1, lastname: 'Profe1', name: 'Sional1' },
-    { id: 2, lastname: 'Profe2', name: 'Sional2' }
-  ];
+  patients = PATIENTS;
+  professionals = USERS;
+  schedules = SCHEDULES;
+  today = new Date();
 
   constructor(
+    private appointmentService: AppointmentService,
     private bottomSheetRef: MatBottomSheetRef<AppointmentFormComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private dialog: MatDialog,
-    private appointmentService: AppointmentService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -44,9 +41,9 @@ export class AppointmentFormComponent implements OnInit {
   createAppointment(): void {
     this.appointmentService.create(this.data.appointment).subscribe(
       appointment => {
-        this.data.appointment = appointment;
         this.dismissBottomSheet('El turno fue registrado correctamente');
-      }
+      },
+      error => this.snackBar.open('Ocurrió un error al registrar el turno', 'OK', { duration: 2000 })
     );
   }
 
@@ -54,7 +51,8 @@ export class AppointmentFormComponent implements OnInit {
     this.appointmentService.update(this.data.appointment).subscribe(
       appointment => {
         this.dismissBottomSheet('El turno fue modificado correctamente');
-      }
+      },
+      error => this.snackBar.open('Ocurrió un error al modificar el turno', 'OK', { duration: 2000 })
     );
   }
 
@@ -67,7 +65,8 @@ export class AppointmentFormComponent implements OnInit {
         this.appointmentService.update(this.data.appointment).subscribe(
           appointment => {
             this.dismissBottomSheet('El turno fue cancelado correctamente');
-          }
+          },
+          error => this.snackBar.open('Ocurrió un error al cancelar el turno', 'OK', { duration: 2000 })
         );
       }
     });
@@ -78,7 +77,8 @@ export class AppointmentFormComponent implements OnInit {
     this.appointmentService.update(this.data.appointment).subscribe(
       appointment => {
         this.dismissBottomSheet('El turno fue confirmado correctamente');
-      }
+      },
+      error => this.snackBar.open('Ocurrió un error al confirmar el turno', 'OK', { duration: 2000 })
     );
   }
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { AppService } from './../../app.service';
 import { AppointmentFormComponent } from './../appointment-form/appointment-form.component';
@@ -13,22 +15,42 @@ import { Schedule } from './../../schedules/schedule.service';
   styleUrls: ['./appointment-list.component.css']
 })
 export class AppointmentListComponent implements OnInit {
-  appointments = [];
+  appointments: Appointment[] = [];
   date = new Date();
-  newAppointment = new Appointment;
+  newAppointment: Appointment = new Appointment;
   schedule: Schedule;
+  searching = false;
+  searchTerm$ = new Subject<string>();
 
   constructor(
     private appService: AppService,
     private appointmentService: AppointmentService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
+    this.searchTerm$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(_ => this.searching = true),
+      switchMap(term => this.appointmentService.search(term))
+    ).subscribe(
+      appointmentsData => { this.appointments = this.appointmentsParser(appointmentsData); this.searching = false; },
+      error => { this.snackBar.open('Ocurrió un error al buscar los turnos', 'OK', { duration: 2000 }); this.searching = false; }
+    );
   }
 
-  openAppointmentBottomSheet(appointment): void {
-    const data = { title: 'Registrar un turno', appointment: appointment };
+  appointmentsParser(data: any): Appointment[] {
+    let appointments: Appointment[] = []
+    data.forEach((appointment: any) => {
+      appointments.push(this.appService.appointmentParser(appointment));
+    });
+    return appointments;
+  }
+
+  openAppointmentBottomSheet(appointment: Appointment): void {
+    const data = { title: 'Información del turno', appointment: appointment };
     this.appService.openBottomSheet(AppointmentFormComponent, data);
   }
 
@@ -45,11 +67,16 @@ export class AppointmentListComponent implements OnInit {
   readAppointments(): void {
     if (this.schedule && this.date) {
       this.appointmentService.readAll().subscribe(
-        appointments => this.appointments = appointments
+        appointments => this.appointments = appointments,
+        error => this.snackBar.open('Ocurrió un error al obtener los turnos', 'OK', { duration: 2000 })
       );
     } else {
       this.appointments = [];
     }
+  }
+
+  search(term: string) {
+    this.searchTerm$.next(term);
   }
 
 }

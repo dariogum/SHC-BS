@@ -12,7 +12,7 @@
           required>
         <mat-hint align="end">Caracteres utilizados: {{name.value.length}} de 256</mat-hint>
       </mat-form-field>
-      <mat-checkbox #newborn name="newborn" [(ngModel)]="data.patient.newborn">Recién nacido</mat-checkbox>
+      <mat-checkbox #newborn name="newborn" [(ngModel)]="data.patient.newborn" *ngIf="!data.patient.id">Recién nacido</mat-checkbox>
       <mat-form-field *ngIf="!data.patient.newborn">
         <mat-select #documentType name="documentType" [(ngModel)]="data.patient.documentType" placeholder="Tipo de documento"
           required>
@@ -20,15 +20,15 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="!data.patient.newborn">
-        <input matInput type="number" #documentNumber name="documentNumber" [(ngModel)]="data.patient.documentNumber"
-          placeholder="Número de documento" maxlength="8" required>
+        <input matInput type="number" #documentNumber name="document" [(ngModel)]="data.patient.document"
+          placeholder="Documento" maxlength="8" required>
         <mat-hint align="start">Ingrese sólo números, sin puntos ni espacios</mat-hint>
         <mat-hint align="end">Números utilizados: {{documentNumber.value.length}} de 8</mat-hint>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
-      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet(bottomSheetForm)">
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
         <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
       </button>
     </mat-card-actions>

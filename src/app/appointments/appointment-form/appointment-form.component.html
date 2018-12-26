@@ -3,6 +3,12 @@
     <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
     <mat-card-content>
       <mat-form-field>
+        <mat-select #schedule name="schedule" [(ngModel)]="data.appointment.schedule" placeholder="Agenda" required
+          [disabled]="data.appointment.id">
+          <mat-option *ngFor="let schedule of schedules" [value]="schedule">{{schedule.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
         <input matInput type="text" #patient name="patient" placeholder="Paciente" aria-label="Paciente" [(ngModel)]="data.appointment.patient"
           [matAutocomplete]="auto" (keyup)="filterPatients($event)" required [disabled]="data.appointment.id">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
@@ -45,7 +51,8 @@
       <button type="button" mat-icon-button *ngIf="data.appointment.id" matTooltip="Imprimir">
         <mat-icon aria-label="Imprimir">print</mat-icon>
       </button>
-      <button type="button" mat-icon-button color="primary" *ngIf="data.appointment.id && !data.appointment.reprogrammed" matTooltip="Reprogramar" (click)="rescheduleAppointment()">
+      <button type="button" mat-icon-button color="primary" *ngIf="data.appointment.id && !data.appointment.reprogrammed"
+        matTooltip="Reprogramar" (click)="rescheduleAppointment()">
         <mat-icon aria-label="Reprogramar">update</mat-icon>
       </button>
       <button type="button" mat-icon-button color="warn" *ngIf="data.appointment.id" matTooltip="Cancelar" (click)="cancelAppointment()">

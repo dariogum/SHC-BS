@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <span>Pacientes</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button matTooltip="Registrar un paciente" (click)="openPatientBottomSheet(newPatient)">
+    <mat-icon aria-label="">add_circle_outline</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Abrir el menu" (click)="appService.toggleSidenav()">
+    <mat-icon aria-label="Menu">menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-card class="mat-elevation-z0">
+  <mat-card-content>
+    <mat-form-field class="full-width">
+      <mat-label>Buscar un paciente</mat-label>
+      <input matInput #searchInput placeholder="Por ejemplo: Juan Perez" (keyup)="search($event.target.value)">
+      <mat-icon *ngIf="!searchInput.value" matSuffix>search</mat-icon>
+      <button type="button" mat-icon-button *ngIf="searchInput.value" aria-label="Limpiar la búsqueda" (click)="searchInput.value=''"
+        matTooltip="Limpiar la búsqueda" matSuffix>
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-hint *ngIf="searchInput.value.length < 1">Ingrese al menos 1 caracter</mat-hint>
+      <mat-hint *ngIf="searching">Buscando...</mat-hint>
+      <mat-hint align="end" *ngIf="patients">{{patients.length}} pacientes encontrados</mat-hint>
+    </mat-form-field>
+    <h4 *ngIf="!patients.length" style="text-align: center;">No hay pacientes registrados aún</h4>
+    <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
+      <mat-list-item *ngFor="let patient of patients" (click)="goToPatientClinicHistory(patient)">
+        <mat-icon matListIcon>person</mat-icon>
+        <h3 matLine>{{patient.lastname}} {{patient.name}}</h3>
+        <p matLine>Edad: <span class="mat-body-2">{{patient.birthday}}</span></p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
