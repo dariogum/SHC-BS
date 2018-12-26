@@ -1,10 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -27,36 +24,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AppointmentFormComponent, AppointmentCancelComponent } from './appointments/appointment-form/appointment-form.component';
-import { AppointmentFiltersComponent } from './appointments/appointment-list/appointment-list.component';
-import { PatientFormComponent } from './patient-form/patient-form.component';
-import { VisitFormComponent } from './visit-form/visit-form.component';
-import { VaccineApplicationFormComponent } from './vaccine-application-form/vaccine-application-form.component';
-import { VitalSignsFormComponent } from './vital-signs-form/vital-signs-form.component';
-import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 
-const appRoutes: Routes = [
-  { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' }
-];
+import { AppointmentsRoutingModule } from './appointments-routing.module';
+import { AppointmentListComponent } from './appointment-list/appointment-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AppointmentCancelComponent,
-    AppointmentFiltersComponent,
-    AppointmentFormComponent,
-    PatientFormComponent,
-    ScheduleFormComponent,
-    VaccineApplicationFormComponent,
-    VisitFormComponent,
-    VitalSignsFormComponent,
+    AppointmentListComponent,
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes
-    ),
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
+    AppointmentsRoutingModule,
     FormsModule,
     HttpClientModule,
     MatAutocompleteModule,
@@ -81,19 +59,8 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTooltipModule,
   ],
-  entryComponents: [
-    AppointmentCancelComponent,
-    AppointmentFormComponent,
-    AppointmentFiltersComponent,
-    PatientFormComponent,
-    ScheduleFormComponent,
-    VaccineApplicationFormComponent,
-    VisitFormComponent,
-    VitalSignsFormComponent,
-  ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
   ],
-  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppointmentsModule { }

@@ -1,0 +1,13 @@
+<form #filtersForm="ngForm" (ngSubmit)="closeDialog(filtersForm)">
+  <h1 mat-dialog-title>Active los filtros</h1>
+  <mat-dialog-content>
+    <mat-slide-toggle name="confirmed" [(ngModel)]="confirmed" style="display: block;">Confirmados</mat-slide-toggle>
+    <mat-slide-toggle name="notConfirmed" [(ngModel)]="notConfirmed" style="display: block;">No confirmados</mat-slide-toggle>
+    <mat-slide-toggle name="notSent" [(ngModel)]="notSent" style="display: block;">Recordatorio no enviado</mat-slide-toggle>
+    <mat-slide-toggle name="reprogrammed" [(ngModel)]="reprogrammed" style="display: block;">Reprogramados</mat-slide-toggle>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button type="submit" mat-button color="primary">Aplicar</button>
+    <button mat-button color="accent" [mat-dialog-close]="false">Cancelar</button>
+  </mat-dialog-actions>
+</form>

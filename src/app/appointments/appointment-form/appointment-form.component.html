@@ -1,10 +1,10 @@
-<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit(bottomSheetForm)">
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit()">
   <mat-card class="mat-elevation-z0">
     <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
     <mat-card-content>
       <mat-form-field>
         <input matInput type="text" #patient name="patient" placeholder="Paciente" aria-label="Paciente" [(ngModel)]="data.appointment.patient"
-          [matAutocomplete]="auto" (keyup)="filterPatients($event)" required>
+          [matAutocomplete]="auto" (keyup)="filterPatients($event)" required [disabled]="data.appointment.id">
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option *ngFor="let patient of filteredPatients" [value]="patient">
             {{patient.lastname}} {{patient.name}}
@@ -12,19 +12,21 @@
         </mat-autocomplete>
       </mat-form-field>
       <mat-form-field>
-        <mat-select #professional name="professional" [(ngModel)]="data.appointment.professional" placeholder="Profesional" required>
-          <mat-option *ngFor="let professional of professionals" [value]="professional">{{professional.lastname}} {{professional.name}}</mat-option>
+        <mat-select #professional name="professional" [(ngModel)]="data.appointment.professional" placeholder="Profesional"
+          required [disabled]="data.appointment.id">
+          <mat-option *ngFor="let professional of professionals" [value]="professional">{{professional.lastname}}
+            {{professional.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <input matInput [matDatepicker]="picker" [min]="today" #date name="date" [(ngModel)]="data.appointment.date"
-          placeholder="Fecha" required>
+          placeholder="Fecha" required [disabled]="data.appointment.id && !data.appointment.reprogrammed">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
         <input matInput type="text" #hour name="hour" [(ngModel)]="data.appointment.hour" placeholder="Hora" maxlength="5"
-          pattern="\d{2}:\d{2}" required>
+          pattern="[0-2]{1}\d{1}:[0-5]{1}\d{1}" required [disabled]="data.appointment.id && !data.appointment.reprogrammed">
         <span matSuffix>hs.</span>
         <mat-hint align="start">Ej: 10:15</mat-hint>
         <mat-hint align="end">Caracteres utilizados: {{hour.value.length}} de 5</mat-hint>
@@ -36,19 +38,20 @@
 
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
-      <button type="button" mat-icon-button color="accent" *ngIf="!data.appointment.confirmed && data.appointment.id" matTooltip="Confirmar">
+      <button type="button" mat-icon-button color="accent" *ngIf="!data.appointment.confirmed && data.appointment.id"
+        matTooltip="Confirmar" (click)="confirmAppointment()">
         <mat-icon aria-label="Confirmar">check_circle_outline</mat-icon>
       </button>
       <button type="button" mat-icon-button *ngIf="data.appointment.id" matTooltip="Imprimir">
         <mat-icon aria-label="Imprimir">print</mat-icon>
       </button>
-      <button type="button" mat-icon-button color="primary" *ngIf="data.appointment.id" matTooltip="Reprogramar">
+      <button type="button" mat-icon-button color="primary" *ngIf="data.appointment.id && !data.appointment.reprogrammed" matTooltip="Reprogramar" (click)="rescheduleAppointment()">
         <mat-icon aria-label="Reprogramar">update</mat-icon>
       </button>
-      <button type="button" mat-icon-button color="warn" *ngIf="data.appointment.id" matTooltip="Cancelar">
+      <button type="button" mat-icon-button color="warn" *ngIf="data.appointment.id" matTooltip="Cancelar" (click)="cancelAppointment()">
         <mat-icon aria-label="Cancelar">cancel</mat-icon>
       </button>
-      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet(bottomSheetForm)">
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
         <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
       </button>
     </mat-card-actions>

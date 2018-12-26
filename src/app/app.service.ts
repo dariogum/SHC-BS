@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MatBottomSheet, MatSnackBar } from '@angular/material';
-import { AppointmentFormComponent } from './appointment-form/appointment-form.component';
 import { PatientFormComponent } from './patient-form/patient-form.component';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 import { VaccineApplicationFormComponent } from './vaccine-application-form/vaccine-application-form.component';
@@ -14,7 +13,6 @@ export class AppService {
   layout = 'web';
   sidenavOpened = false;
 
-  appointment = { id: null, schedule: 1, date: new Date(), hour: null, proffesional: null, patient: null, indications: null };
   patient = { id: null, lastname: null, name: null, newborn: false, documentType: null, documentNumber: null, vaccinations: [] };
   schedule = { id: null, name: null, periodicity: null };
   vaccineApplication = { id: null, date: new Date(), age: null, vaccine: null, dose: null };
@@ -63,11 +61,6 @@ export class AppService {
   openScheduleBottomSheet(): void {
     const data = { title: 'Crear una agenda', schedule: this.schedule };
     this.openBottomSheet(ScheduleFormComponent, data);
-  }
-
-  openAppointmentBottomSheet(appointment): void {
-    const data = { title: 'Registrar un turno', appointment: appointment };
-    this.openBottomSheet(AppointmentFormComponent, data);
   }
 
   toggleSidenav() {
