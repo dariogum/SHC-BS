@@ -42,7 +42,7 @@ export class AppointmentListComponent implements OnInit {
   }
 
   appointmentsParser(data: any): Appointment[] {
-    let appointments: Appointment[] = []
+    const appointments: Appointment[] = [];
     data.forEach((appointment: any) => {
       appointments.push(this.appService.appointmentParser(appointment));
     });

@@ -2,18 +2,27 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
+import { User } from './../users/user.service';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 export class Schedule {
+  active: boolean;
   id: number;
   name: string;
+  periodic: boolean;
+  professionals: User[];
+
+  constructor() {
+    this.active = true;
+  }
 }
 
 export const SCHEDULES: Schedule[] = [
-  {id: 1, name: 'Agenda 1'},
-  {id: 2, name: 'Agenda 2'},
+  { active: true, id: 1, name: 'Agenda 1', periodic: true, professionals: [] },
+  { active: true, id: 2, name: 'Agenda 2', periodic: false, professionals: [] },
 ];
 
 @Injectable({
@@ -46,5 +55,13 @@ export class ScheduleService {
 
   delete(schedule: Schedule): Observable<{}> {
     return this.http.delete(`schedules/${schedule.id}`, httpOptions);
+  }
+
+  search(term: string): Observable<Schedule[]> {
+    term = term.trim().toLowerCase();
+    if (term.length) {
+      return this.http.get<Schedule[]>(`schedules/search/${term}`);
+    }
+    return of([new Schedule]);
   }
 }

@@ -1,0 +1,35 @@
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit()">
+  <mat-card class="mat-elevation-z0">
+    <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select #role name="role" [(ngModel)]="data.user.role" placeholder="Rol" required>
+          <mat-option *ngFor="let role of roles" [value]="role">{{role.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" #lastname name="lastname" [(ngModel)]="data.user.lastname" placeholder="Apellido/s"
+          maxlength="256" required>
+        <mat-hint align="end">Caracteres utilizados: {{lastname.value.length}} de 256</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="text" #name name="name" [(ngModel)]="data.user.name" placeholder="Nombre/s" maxlength="256"
+          required>
+        <mat-hint align="end">Caracteres utilizados: {{name.value.length}} de 256</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="email" #email name="email" [(ngModel)]="data.user.email" placeholder="Correo electrónico"
+          maxlength="256" required>
+        <mat-hint align="end">Caracteres utilizados: {{email.value.length}} de 256</mat-hint>
+      </mat-form-field>
+      <mat-checkbox #active name="active" [(ngModel)]="data.user.active">Activo</mat-checkbox>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
+        <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

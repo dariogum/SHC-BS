@@ -3,39 +3,60 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type':  'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-export interface User {
+export class Role {
+  id: number;
+  codeName: string;
+  name: string;
+}
+
+const ROLES: Role[] = [
+  { id: 1, codeName: 'medic', name: 'Médico' },
+  { id: 2, codeName: 'administrator', name: 'Administrador' },
+  { id: 3, codeName: 'administrative', name: 'Administrativo' },
+];
+
+export class User {
   active: boolean;
   createdAt: Date;
+  email: string;
   id: number;
   lastname: string;
   name: string;
   password: string;
-  role: string;
+  role: Role;
   updatedAt: Date;
+
+  constructor() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+    this.active = true;
+  }
 }
 
 export const USERS: User[] = [
   {
     active: true,
     createdAt: new Date(),
+    email: 'medico1@shc.com',
     id: 1,
     lastname: 'De Prueba',
     name: 'Médico 1',
     password: '',
-    role: 'medic',
+    role: ROLES[0],
     updatedAt: new Date(),
   },
   {
     active: true,
     createdAt: new Date(),
+    email: 'medico2@shc.com',
     id: 2,
     lastname: 'De Prueba',
     name: 'Médico 2',
     password: '',
-    role: 'medic',
+    role: ROLES[0],
     updatedAt: new Date(),
   },
 ];
@@ -70,5 +91,17 @@ export class UserService {
 
   delete(user: User): Observable<{}> {
     return this.http.delete(`users/${user.id}`, httpOptions);
+  }
+
+  search(term: string): Observable<User[]> {
+    term = term.trim().toLowerCase();
+    if (term.length) {
+      return this.http.get<User[]>(`users/search/${term}`);
+    }
+    return of([new User]);
+  }
+
+  readRoles(): any[] {
+    return ROLES;
   }
 }

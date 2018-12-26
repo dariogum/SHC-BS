@@ -92,9 +92,9 @@ export class AppService {
       documentType: data.attributes.documentType,
       gender: data.attributes.gender,
       id: data.id,
-      lastname: data.attribute.lastname,
+      lastname: data.attributes.lastname,
       name: data.attributes.name,
-    }
+    };
     return patient;
   }
 
@@ -102,6 +102,7 @@ export class AppService {
     const user: User = {
       active: data.attributes.active,
       createdAt: data.attributes.createdAt,
+      email: data.attributes.email,
       id: data.id,
       lastname: data.attributes.lastname,
       name: data.attributes.name,
@@ -113,9 +114,18 @@ export class AppService {
   }
 
   scheduleParser(data: any): Schedule {
+    const professionals: User[] = [];
+    if (data.relationships.professionals.length) {
+      data.relationships.professionals.forEach((professional: any) => {
+        this.userService.read(professional.id).subscribe(result => professionals.push(this.userParser(result)));
+      });
+    }
     const schedule: Schedule = {
+      active: data.attributes.active,
       id: data.id,
       name: data.attributes.name,
+      periodic: data.attributes.periodic,
+      professionals: professionals,
     };
     return schedule;
   }

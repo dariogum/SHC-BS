@@ -34,11 +34,14 @@ import { PatientFormComponent } from './patients/patient-form/patient-form.compo
 import { VisitFormComponent, VisitDeleteComponent } from './visits/visit-form/visit-form.component';
 import { VaccineApplicationFormComponent } from './vaccinations/vaccine-application-form/vaccine-application-form.component';
 import { VitalSignsFormComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
-import { ScheduleFormComponent } from './schedules/schedule-form/schedule-form.component';
+import { ScheduleFormComponent, ScheduleDeleteComponent } from './schedules/schedule-form/schedule-form.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
 
 const appRoutes: Routes = [
   { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' },
-  { path: 'patients', loadChildren: './patients/patients.module#PatientsModule' }
+  { path: 'patients', loadChildren: './patients/patients.module#PatientsModule' },
+  { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesModule' },
 ];
 
 @NgModule({
@@ -48,11 +51,13 @@ const appRoutes: Routes = [
     AppointmentFiltersComponent,
     AppointmentFormComponent,
     PatientFormComponent,
+    ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
     VisitDeleteComponent,
     VisitFormComponent,
     VitalSignsFormComponent,
+    UserFormComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -89,11 +94,13 @@ const appRoutes: Routes = [
     AppointmentFormComponent,
     AppointmentFiltersComponent,
     PatientFormComponent,
+    ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
     VisitDeleteComponent,
     VisitFormComponent,
     VitalSignsFormComponent,
+    UserFormComponent,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },

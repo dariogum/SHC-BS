@@ -8,16 +8,17 @@
         <mat-hint align="end">Caracteres utilizados: {{name.value.length}} de 256</mat-hint>
       </mat-form-field>
       <mat-form-field>
-        <mat-select #periodicity name="periodicity" [(ngModel)]="data.schedule.periodicity" placeholder="Periodicidad"
-          required>
-          <mat-option [value]="1">Semanal</mat-option>
-          <mat-option [value]="2">Días específicos</mat-option>
+        <mat-select #periodic name="periodic" [(ngModel)]="data.schedule.periodic" placeholder="Periodicidad" required>
+          <mat-option [value]="true">Semanal</mat-option>
+          <mat-option [value]="false">Días específicos</mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-checkbox #active name="active" [(ngModel)]="data.schedule.active">Activa</mat-checkbox>
     </mat-card-content>
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
-      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet(bottomSheetForm)">
+      <button type="button" mat-raised-button color="warn" *ngIf="data.schedule.id" (click)="deleteSchedule()">Eliminar</button>
+      <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
         <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
       </button>
     </mat-card-actions>

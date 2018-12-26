@@ -42,7 +42,7 @@ export class PatientListComponent implements OnInit {
   }
 
   patientsParser(data: any): Patient[] {
-    let patients: Patient[] = []
+    const patients: Patient[] = [];
     data.forEach((patient: any) => {
       patients.push(this.appService.patientParser(patient));
     });
