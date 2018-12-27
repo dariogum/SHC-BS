@@ -16,6 +16,7 @@ import { Schedule } from './../../schedules/schedule.service';
 })
 export class AppointmentListComponent implements OnInit {
   appointments: Appointment[] = [];
+  filteredAppointments: Appointment[] = [];
   date = new Date();
   newAppointment: Appointment = new Appointment;
   schedule: Schedule;
@@ -76,7 +77,17 @@ export class AppointmentListComponent implements OnInit {
   }
 
   search(term: string) {
-    this.searchTerm$.next(term);
+    if (!term.trim().length) {
+      this.filteredAppointments = [];
+    } else {
+      this.filteredAppointments = this.appointments.filter(appointment => {
+        return (
+          appointment.patient.lastname.toLowerCase().search(term.toLowerCase()) !== -1 ||
+          appointment.patient.name.toLowerCase().search(term.toLowerCase()) !== -1 ||
+          appointment.hour.toLowerCase().search(term.toLowerCase()) !== -1
+        );
+      });
+    }
   }
 
 }

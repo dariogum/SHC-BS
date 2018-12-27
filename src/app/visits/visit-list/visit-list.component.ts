@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { AppService } from './../../app.service';
@@ -14,10 +13,10 @@ import { Visit, VisitService } from './../visit.service';
 })
 export class VisitListComponent implements OnInit {
   visits: Visit[] = [];
+  filteredVisits: Visit[] = [];
   date = new Date();
   newVisit: Visit = new Visit;
   searching = false;
-  searchTerm$ = new Subject<string>();
 
   constructor(
     private appService: AppService,
@@ -27,16 +26,6 @@ export class VisitListComponent implements OnInit {
 
   ngOnInit() {
     this.readVisits();
-
-    this.searchTerm$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(_ => this.searching = true),
-      switchMap(term => this.visitService.search(term))
-    ).subscribe(
-      visitsData => { this.visits = this.visitsParser(visitsData); this.searching = false; },
-      error => { this.snackBar.open('Ocurrió un error al buscar las visitas', 'OK', { duration: 2000 }); this.searching = false; }
-    );
   }
 
   visitsParser(data: any): Visit[] {
@@ -60,6 +49,15 @@ export class VisitListComponent implements OnInit {
   }
 
   search(term: string) {
-    this.searchTerm$.next(term);
+    if (!term.trim().length) {
+      this.filteredVisits = [];
+    } else {
+      this.filteredVisits = this.visits.filter(visit => {
+        return (
+          visit.diagnostic.toLowerCase().search(term.toLowerCase()) !== -1 ||
+          visit.treatment.toLowerCase().search(term.toLowerCase()) !== -1
+        );
+      });
+    }
   }
 }

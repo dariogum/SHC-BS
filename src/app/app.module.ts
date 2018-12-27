@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -33,15 +34,19 @@ import { AppointmentFiltersComponent } from './appointments/appointment-list/app
 import { PatientFormComponent } from './patients/patient-form/patient-form.component';
 import { VisitFormComponent, VisitDeleteComponent } from './visits/visit-form/visit-form.component';
 import { VaccineApplicationFormComponent } from './vaccinations/vaccine-application-form/vaccine-application-form.component';
-import { VitalSignsFormComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
+import { VitalSignsFormComponent, VitalSignsDeleteComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
 import { ScheduleFormComponent, ScheduleDeleteComponent } from './schedules/schedule-form/schedule-form.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
+
+import localeEsAr from '@angular/common/locales/es-AR';
+registerLocaleData(localeEsAr, 'es-AR');
 
 const appRoutes: Routes = [
   { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' },
   { path: 'patients', loadChildren: './patients/patients.module#PatientsModule' },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesModule' },
+  { path: '', loadChildren: './authentication/authentication.module#AuthenticationModule' },
 ];
 
 @NgModule({
@@ -56,6 +61,7 @@ const appRoutes: Routes = [
     VaccineApplicationFormComponent,
     VisitDeleteComponent,
     VisitFormComponent,
+    VitalSignsDeleteComponent,
     VitalSignsFormComponent,
     UserFormComponent,
   ],
@@ -99,10 +105,12 @@ const appRoutes: Routes = [
     VaccineApplicationFormComponent,
     VisitDeleteComponent,
     VisitFormComponent,
+    VitalSignsDeleteComponent,
     VitalSignsFormComponent,
     UserFormComponent,
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'es-AR' },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
   ],
   bootstrap: [AppComponent]

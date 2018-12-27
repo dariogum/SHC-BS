@@ -6,7 +6,8 @@ import { Appointment } from './appointments/appointment.service';
 import { Patient, PatientService } from './patients/patient.service';
 import { User, UserService } from './users/user.service';
 import { Schedule, ScheduleService } from './schedules/schedule.service';
-import { Visit, VisitService } from './visits/visit.service';
+import { Visit } from './visits/visit.service';
+import { VitalSigns } from './vital-signs/vital-signs.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,12 @@ export class AppService {
   layout = 'web';
   sidenavOpened = false;
 
-  patient = { id: null, lastname: null, name: null, newborn: false, documentType: null, documentNumber: null, vaccinations: [] };
-  schedule = { id: null, name: null, periodicity: null };
-  vaccineApplication = { id: null, date: new Date(), age: null, vaccine: null, dose: null };
-  visit = { id: null, date: new Date(), diagnostic: null, treatment: null, studies: null };
-  vitalSignsRecord = { id: null, date: new Date(), bloodPressure: null, heartRate: null, temperature: null, breathingFrequency: null };
-
   constructor(
     private bottomSheet: MatBottomSheet,
     private snackBar: MatSnackBar,
     private patientService: PatientService,
     private userService: UserService,
     private scheduleService: ScheduleService,
-    private visitService: VisitService,
   ) { }
 
   openBottomSheet(formComponent: any, data: any): void {
@@ -53,20 +47,6 @@ export class AppService {
   }
 
   appointmentParser(data: any): Appointment {
-    let patientData: any, userData: any, scheduleData: any;
-    let patient: Patient = null;
-    let professional: User = null;
-    let schedule: Schedule = null;
-    if (data.attributes.patient && data.attributes.professional && data.attributes.schedule) {
-      patientData = this.patientService.read(data.attributes.patient);
-      userData = this.userService.read(data.attributes.professional);
-      scheduleData = this.scheduleService.read(data.attributes.schedule);
-      forkJoin([patientData, userData, scheduleData]).subscribe(results => {
-        patient = this.patientParser(results[0]);
-        professional = this.userParser(results[1]);
-        schedule = this.scheduleParser(results[2]);
-      });
-    }
     const appointment: Appointment = {
       canceled: data.attributes.canceled,
       confirmed: data.attributes.confirmed,
@@ -75,13 +55,23 @@ export class AppService {
       hour: data.attributes.hour,
       id: data.id,
       indications: data.attributes.indications,
-      patient: patient,
-      professional: professional,
+      patient: null,
+      professional: null,
       reprogrammed: data.attributes.reprogrammed,
       reminderSent: data.attributes.reminderSent,
-      schedule: schedule,
+      schedule: null,
       updatedAt: data.attributes.updatedAt,
     };
+    if (data.attributes.patient && data.attributes.professional && data.attributes.schedule) {
+      let patientData = this.patientService.read(data.attributes.patient);
+      let userData = this.userService.read(data.attributes.professional);
+      let scheduleData = this.scheduleService.read(data.attributes.schedule);
+      forkJoin([patientData, userData, scheduleData]).subscribe(results => {
+        appointment.patient = this.patientParser(results[0]);
+        appointment.professional = this.userParser(results[1]);
+        appointment.schedule = this.scheduleParser(results[2]);
+      });
+    }
     return appointment;
   }
 
@@ -114,19 +104,18 @@ export class AppService {
   }
 
   scheduleParser(data: any): Schedule {
-    const professionals: User[] = [];
-    if (data.relationships.professionals.length) {
-      data.relationships.professionals.forEach((professional: any) => {
-        this.userService.read(professional.id).subscribe(result => professionals.push(this.userParser(result)));
-      });
-    }
     const schedule: Schedule = {
       active: data.attributes.active,
       id: data.id,
       name: data.attributes.name,
       periodic: data.attributes.periodic,
-      professionals: professionals,
+      professionals: [],
     };
+    if (data.relationships.professionals.length) {
+      data.relationships.professionals.forEach((professional: any) => {
+        this.userService.read(professional.id).subscribe(result => schedule.professionals.push(this.userParser(result)));
+      });
+    }
     return schedule;
   }
 
@@ -138,5 +127,17 @@ export class AppService {
       treatment: data.attributes.treatment,
     };
     return visit;
+  }
+
+  vitalSignsRecordParser(data: any): VitalSigns {
+    const vitalSignsRecord: VitalSigns = {
+      bloodPressure: data.attributes.bloodPressure,
+      breathingFrequency: data.attributes.breathingFrequency,
+      date: data.attributes.date,
+      heartRate: data.attributes.heartRate,
+      id: data.id,
+      temperature: data.attributes.temperature,
+    };
+    return vitalSignsRecord;
   }
 }

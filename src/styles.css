@@ -13,6 +13,10 @@ mat-sidenav {
     width: 200px;
 }
 
+mat-sidenav-container {
+    height: 100%;
+}
+
 mat-form-field, mat-checkbox {
     margin: 0 8px 8px;
 }

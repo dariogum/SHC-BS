@@ -43,7 +43,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button type="submit" mat-raised-button color="primary" [disabled]="!bottomSheetForm.form.valid">Guardar</button>
+      <button type="submit" mat-raised-button color="primary" [disabled]="bottomSheetForm.form.invalid">Guardar</button>
       <button type="button" mat-icon-button color="accent" *ngIf="!data.appointment.confirmed && data.appointment.id"
         matTooltip="Confirmar" (click)="confirmAppointment()">
         <mat-icon aria-label="Confirmar">check_circle_outline</mat-icon>

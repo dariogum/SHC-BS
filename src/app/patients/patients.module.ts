@@ -30,9 +30,10 @@ import { PatientsRoutingModule } from './patients-routing.module';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientClinicHistoryComponent } from './patient-clinic-history/patient-clinic-history.component';
 import { VisitListComponent } from './../visits/visit-list/visit-list.component';
+import { VitalSignsListComponent } from './../vital-signs/vital-signs-list/vital-signs-list.component';
 
 @NgModule({
-  declarations: [PatientListComponent, PatientClinicHistoryComponent, VisitListComponent],
+  declarations: [PatientListComponent, PatientClinicHistoryComponent, VisitListComponent, VitalSignsListComponent],
   imports: [
     CommonModule,
     PatientsRoutingModule,

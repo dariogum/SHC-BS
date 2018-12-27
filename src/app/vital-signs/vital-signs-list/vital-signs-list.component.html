@@ -1,0 +1,19 @@
+<mat-card class="mat-elevation-z0">
+  <mat-card-content>
+    <h4 *ngIf="!vitalSignsRecords.length" style="text-align: center;">No hay registros de signos vitales aún</h4>
+    <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
+      <mat-list-item *ngFor="let vitalSignsRecord of vitalSignsRecords" (click)="openVitalSignsBottomSheet(vitalSignsRecord)">
+        <mat-icon matListIcon *ngIf="appService.layout !== 'handset'">event_available</mat-icon>
+        <h3 matLine>{{vitalSignsRecord.date | date : shortDate}}</h3>
+        <p matLine>Tensión arterial: <span class="mat-caption">{{vitalSignsRecord.bloodPressure}}</span></p>
+        <p matLine>Frecuencia cardíaca: <span class="mat-caption">{{vitalSignsRecord.heartRate}}</span></p>
+        <p matLine>Temperatura: <span class="mat-caption">{{vitalSignsRecord.temperature}}</span></p>
+        <p matLine>Frecuencia respiratoria: <span class="mat-caption">{{vitalSignsRecord.breathingFrequency}}</span></p>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions style="text-align: right;">
+    <button mat-raised-button color="primary" (click)="openVitalSignsBottomSheet(newVitalSignsRecord)">Registrar signos vitales</button>
+  </mat-card-actions>
+</mat-card>

@@ -27,7 +27,7 @@
       <mat-list-item *ngFor="let patient of patients" (click)="goToPatientClinicHistory(patient)">
         <mat-icon matListIcon>person</mat-icon>
         <h3 matLine>{{patient.lastname}} {{patient.name}}</h3>
-        <p matLine>Edad: <span class="mat-body-2">{{patient.birthday}}</span></p>
+        <p matLine>Fecha de nacimiento: <span class="mat-body-2">{{patient.birthday | date : 'longDate'}}</span></p>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>

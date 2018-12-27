@@ -14,9 +14,9 @@ export class Visit {
 }
 
 export const VISITS: Visit[] = [
-  { date: new Date(), diagnostic: 'Probando el diagnóstico', id: 1, treatment: 'Probando el tratamiento' },
-  { date: new Date(), diagnostic: 'Probando el diagnóstico', id: 2, treatment: 'Probando el tratamiento' },
-  { date: new Date(), diagnostic: 'Probando el diagnóstico', id: 3, treatment: 'Probando el tratamiento' },
+  { date: new Date(), diagnostic: 'Probando el diagnóstico 1', id: 1, treatment: 'Probando el tratamiento 4' },
+  { date: new Date(), diagnostic: 'Probando el diagnóstico 2', id: 2, treatment: 'Probando el tratamiento 5' },
+  { date: new Date(), diagnostic: 'Probando el diagnóstico 3', id: 3, treatment: 'Probando el tratamiento 6' },
 ];
 
 @Injectable({
