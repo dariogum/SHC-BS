@@ -14,24 +14,32 @@ export class BirthType {
 }
 
 const BIRTHTYPES: BirthType[] = [
-  {id: 1, name: 'Parto'},
-  {id: 2, name: 'Cesárea'},
+  { id: 1, name: 'Parto' },
+  { id: 2, name: 'Cesárea' },
 ];
 
 export class Patient {
+  apgar1: number;
+  apgar2: number;
   apartment: string;
   birthday: Date;
+  brothers: string;
   city: City;
+  comment: string;
   country: Country;
   document: string;
   documentType: number;
   email: string;
+  father: string;
   floor: string;
   gender: number;
+  gestationalAge: number;
   id: number;
   lastname: string;
+  mother: string;
   name: string;
   number: string;
+  others: string;
   phone1: string;
   phone2: string;
   socialSecurity1: SocialSecurity;
@@ -52,19 +60,27 @@ export class Patient {
 
 export const PATIENTS: Patient[] = [
   {
+    apgar1: null,
+    apgar2: null,
     apartment: null,
     birthday: new Date(),
+    brothers: null,
     city: null,
+    comment: null,
     country: null,
     document: null,
     documentType: null,
     email: null,
+    father: null,
     floor: null,
     gender: null,
+    gestationalAge: null,
     id: 1,
     lastname: 'De Prueba',
+    mother: null,
     name: 'Paciente 1',
     number: null,
+    others: null,
     phone1: null,
     phone2: null,
     socialSecurity1: null,
@@ -77,19 +93,27 @@ export const PATIENTS: Patient[] = [
     street: null,
   },
   {
+    apgar1: null,
+    apgar2: null,
     apartment: null,
     birthday: new Date(),
+    brothers: null,
     city: null,
+    comment: null,
     country: null,
     document: null,
     documentType: null,
     email: null,
+    father: null,
     floor: null,
     gender: null,
+    gestationalAge: null,
     id: 1,
     lastname: 'De Prueba',
+    mother: null,
     name: 'Paciente 2',
     number: null,
+    others: null,
     phone1: null,
     phone2: null,
     socialSecurity1: null,

@@ -1,0 +1,30 @@
+<form #personalBackgroundForm="ngForm" (ngSubmit)="onSubmit()">
+  <mat-card class="mat-elevation-z0">
+    <mat-form-field class="apgar">
+      <input matInput type="number" min="0" max="10" #apgar1 name="apgar1" [(ngModel)]="patient.apgar1" placeholder="Test de Apgar 1 min.">
+    </mat-form-field>
+    <mat-form-field class="apgar">
+      <input matInput type="number" min="0" max="10" #apgar2 name="apgar2" [(ngModel)]="patient.apgar2" placeholder="Test de Apgar 5 min.">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" min="0" #gestationalAge name="gestationalAge" [(ngModel)]="patient.gestationalAge"
+        placeholder="Edad gestacional">
+      <span matSuffix>semanas</span>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #comment name="comment" [(ngModel)]="patient.comment" placeholder="Comentario"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #father name="father" [(ngModel)]="patient.father" placeholder="Padre"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #mother name="mother" [(ngModel)]="patient.mother" placeholder="Madre"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #brothers name="brothers" [(ngModel)]="patient.brothers" placeholder="Hermanos"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput #others name="others" [(ngModel)]="patient.others" placeholder="Otros"></textarea>
+    </mat-form-field>
+  </mat-card>
+</form>

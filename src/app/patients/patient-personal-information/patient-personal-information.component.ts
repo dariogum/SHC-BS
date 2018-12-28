@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 import { Patient, PatientService, BirthType } from './../patient.service';
 import { SocialSecurity, SocialSecurityService } from './../social-security.service';
@@ -23,6 +24,7 @@ export class PatientPersonalInformationComponent implements OnInit {
     private patientService: PatientService,
     private socialSecurityService: SocialSecurityService,
     private countryService: CountryService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,9 @@ export class PatientPersonalInformationComponent implements OnInit {
   }
 
   filterSocialSecurities(event): void {
-    this.filteredSocialSecurities = this.socialSecurities.filter(socialSecurity => socialSecurity.name.toLowerCase().includes(event.target.value.toLowerCase()));
+    this.filteredSocialSecurities = this.socialSecurities.filter(
+      socialSecurity => socialSecurity.name.toLowerCase().includes(event.target.value.toLowerCase())
+    );
   }
 
   displayFn(socialSecurity?: SocialSecurity): string | undefined {
@@ -43,7 +47,7 @@ export class PatientPersonalInformationComponent implements OnInit {
 
   verifySocialSecuritySelection(form: NgForm) {
     if (typeof this.patient.socialSecurity1 === 'string') {
-      form.form.controls['socialSecurity1'].setErrors({notObject: true});
+      form.form.controls['socialSecurity1'].setErrors({ notObject: true });
     }
   }
 
@@ -65,6 +69,19 @@ export class PatientPersonalInformationComponent implements OnInit {
 
   readBirthTypes(): void {
     this.patientService.readAllBirthTypes().subscribe(birthType => this.birthTypes = birthType);
+  }
+
+  update(form: NgForm): void {
+    if (form.form.valid && form.form.dirty) {
+      this.updatePatient();
+    }
+  }
+
+  updatePatient(): void {
+    this.patientService.update(this.patient).subscribe(
+      _ => { },
+      error => this.snackBar.open('Ocurrió un error al modificar los datos del paciente', 'OK', { duration: 2000 })
+    );
   }
 
 }

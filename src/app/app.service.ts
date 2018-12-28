@@ -63,9 +63,9 @@ export class AppService {
       updatedAt: data.attributes.updatedAt,
     };
     if (data.attributes.patient && data.attributes.professional && data.attributes.schedule) {
-      let patientData = this.patientService.read(data.attributes.patient);
-      let userData = this.userService.read(data.attributes.professional);
-      let scheduleData = this.scheduleService.read(data.attributes.schedule);
+      const patientData = this.patientService.read(data.attributes.patient);
+      const userData = this.userService.read(data.attributes.professional);
+      const scheduleData = this.scheduleService.read(data.attributes.schedule);
       forkJoin([patientData, userData, scheduleData]).subscribe(results => {
         appointment.patient = this.patientParser(results[0]);
         appointment.professional = this.userParser(results[1]);
@@ -77,23 +77,31 @@ export class AppService {
 
   patientParser(data: any): Patient {
     const patient: Patient = {
+      apartment: data.attributes.apartment,
+      apgar1: data.attributes.apgar1,
+      apgar2: data.attributes.apgar2,
       birthday: data.attributes.birthday,
+      brothers: data.attributes.brothers,
+      city: data.attributes.city,
+      comment: data.attributes.comment,
+      country: data.attributes.country,
       document: data.attributes.document,
       documentType: data.attributes.documentType,
+      email: data.attributes.email,
+      father: data.attributes.father,
+      floor: data.attributes.floor,
       gender: data.attributes.gender,
+      gestationalAge: data.attributes.gestationalAge,
       id: data.id,
       lastname: data.attributes.lastname,
       name: data.attributes.name,
+      number: data.attributes.number,
+      mother: data.attributes.mother,
+      others: data.attributes.others,
       phone1: data.attributes.phone1,
       phone2: data.attributes.phone2,
-      email: data.attributes.email,
       street: data.attributes.street,
-      number: data.attributes.number,
-      floor: data.attributes.floor,
-      apartment: data.attributes.apartment,
-      country: data.attributes.country,
       state: data.attributes.state,
-      city: data.attributes.city,
       socialSecurity1: data.attributes.socialSecurity1,
       socialSecurityPlan1: data.attributes.socialSecurityPlan1,
       socialSecurityNumber1: data.attributes.socialSecurityNumber1,

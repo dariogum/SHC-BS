@@ -32,6 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppointmentFormComponent, AppointmentCancelComponent } from './appointments/appointment-form/appointment-form.component';
 import { AppointmentFiltersComponent } from './appointments/appointment-list/appointment-list.component';
 import { PatientFormComponent } from './patients/patient-form/patient-form.component';
+import { PatientDeleteComponent } from './patients/patient-clinic-history/patient-clinic-history.component';
 import { VisitFormComponent, VisitDeleteComponent } from './visits/visit-form/visit-form.component';
 import { VaccineApplicationFormComponent } from './vaccinations/vaccine-application-form/vaccine-application-form.component';
 import { VitalSignsFormComponent, VitalSignsDeleteComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
@@ -55,6 +56,7 @@ const appRoutes: Routes = [
     AppointmentCancelComponent,
     AppointmentFiltersComponent,
     AppointmentFormComponent,
+    PatientDeleteComponent,
     PatientFormComponent,
     ScheduleDeleteComponent,
     ScheduleFormComponent,
@@ -99,6 +101,7 @@ const appRoutes: Routes = [
     AppointmentCancelComponent,
     AppointmentFormComponent,
     AppointmentFiltersComponent,
+    PatientDeleteComponent,
     PatientFormComponent,
     ScheduleDeleteComponent,
     ScheduleFormComponent,

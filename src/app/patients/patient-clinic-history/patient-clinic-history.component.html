@@ -4,13 +4,22 @@
   </button>
   <span>{{patient.lastname}} {{patient.name}}</span>
   <span class="toolbar-spacer"></span>
+  <button mat-icon-button *ngIf="patient.id" color="warn" matTooltip="Eliminar el paciente" (click)="deletePatient()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Abrir todas las secciones" (click)="openAll()">
+    <mat-icon>unfold_more</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Cerrar todas las secciones" (click)="closeAll()">
+    <mat-icon>unfold_less</mat-icon>
+  </button>
   <button mat-icon-button matTooltip="Abrir el menu" (click)="appService.toggleSidenav()">
     <mat-icon aria-label="Menu">menu</mat-icon>
   </button>
 </mat-toolbar>
 <mat-card class="mat-elevation-z0">
   <mat-card-content>
-    <mat-accordion multi="true">
+    <mat-accordion multi="true" #accordion>
 
       <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
@@ -19,11 +28,11 @@
         <app-patient-personal-information></app-patient-personal-information>
       </mat-expansion-panel>
 
-      <mat-expansion-panel>
+      <mat-expansion-panel expanded="true">
         <mat-expansion-panel-header>
           Antecedentes
         </mat-expansion-panel-header>
-        This the expansion 2 content
+        <app-patient-background></app-patient-background>
       </mat-expansion-panel>
 
       <mat-expansion-panel>

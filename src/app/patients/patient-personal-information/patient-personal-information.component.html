@@ -1,56 +1,56 @@
-<form #personalInformationForm="ngForm" (ngSubmit)="onSubmit()">
+<form #personalInformationForm="ngForm">
   <mat-card class="mat-elevation-z0">
     <mat-tab-group mat-align-tabs="center">
       <mat-tab label="Persona">
         <mat-form-field>
           <input matInput type="text" #lastname name="lastname" [(ngModel)]="patient.lastname" maxlength="256"
-            placeholder="Apellido/s" required>
+            placeholder="Apellido/s" required (blur)="update(personalInformationForm)">
           <mat-hint align="end">Caracteres utilizados: {{lastname.value.length}} de 256</mat-hint>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" #name name="name" [(ngModel)]="patient.name" maxlength="256" placeholder="Nombre/s"
-            required>
+            required (blur)="update(personalInformationForm)">
           <mat-hint align="end">Caracteres utilizados: {{name.value.length}} de 256</mat-hint>
         </mat-form-field>
         <mat-form-field>
           <input matInput [matDatepicker]="picker" #birthday name="birthday" placeholder="Fecha de nacimiento"
-            [(ngModel)]="patient.birthday">
+            [(ngModel)]="patient.birthday" (dateInput)="update(personalInformationForm)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-select #gender name="gender" [(ngModel)]="patient.gender" placeholder="Sexo otorgado al nacer">
+          <mat-select #gender name="gender" [(ngModel)]="patient.gender" placeholder="Sexo otorgado al nacer" (selectionChange)="update(personalInformationForm)">
             <mat-option [value]="1">Masculino</mat-option>
             <mat-option [value]="2">Femenino</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-select #documentType name="documentType" [(ngModel)]="patient.documentType" placeholder="Tipo de documento"
-            required>
+            required (selectionChange)="update(personalInformationForm)">
             <mat-option [value]="1">D.N.I.</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="number" #documentNumber name="documentNumber" [(ngModel)]="patient.documentNumber"
-            placeholder="Número de documento" maxlength="8" required>
+            placeholder="Número de documento" maxlength="8" required (blur)="update(personalInformationForm)">
           <mat-hint align="start">Ingrese sólo números, sin puntos ni espacios</mat-hint>
           <mat-hint align="end">Números utilizados: {{documentNumber.value.length}} de 8</mat-hint>
         </mat-form-field>
       </mat-tab>
       <mat-tab label="Clínica">
         <mat-form-field>
-          <mat-select #birthType name="birthType" [(ngModel)]="patient.birthType" placeholder="Tipo de nacimiento">
+          <mat-select #birthType name="birthType" [(ngModel)]="patient.birthType" placeholder="Tipo de nacimiento" (selectionChange)="update(personalInformationForm)">
             <mat-option *ngFor="let birthType of birthTypes" [value]="birthType">{{birthType.name}}</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="number" min="0" max="100000" step="10" #weightNewborn name="weightNewborn" [(ngModel)]="patient.weightNewborn"
-            placeholder="Peso recién nacido">
+            placeholder="Peso recién nacido" (blur)="update(personalInformationForm)">
           <span matSuffix>g</span>
           <mat-hint align="start">Ingrese sólo números, sin puntos ni espacios</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <mat-select #bloodType name="bloodType" [(ngModel)]="patient.bloodType" placeholder="Grupo sanguíneo">
+          <mat-select #bloodType name="bloodType" [(ngModel)]="patient.bloodType" placeholder="Grupo sanguíneo" (selectionChange)="update(personalInformationForm)">
             <mat-option [value]="1">0</mat-option>
             <mat-option [value]="2">A</mat-option>
             <mat-option [value]="3">B</mat-option>
@@ -58,7 +58,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select #rhFactor name="rhFactor" [(ngModel)]="patient.rhFactor" placeholder="Factor RH">
+          <mat-select #rhFactor name="rhFactor" [(ngModel)]="patient.rhFactor" placeholder="Factor RH" (selectionChange)="update(personalInformationForm)">
             <mat-option [value]="1">+ (Positivo)</mat-option>
             <mat-option [value]="2">- (Negativo)</mat-option>
           </mat-select>
@@ -69,22 +69,22 @@
           <mat-form-field>
             <input matInput type="text" #socialSecurity1="ngModel" name="socialSecurity1" placeholder="Obra social"
               aria-label="Obra social" [(ngModel)]="patient.socialSecurity1" [matAutocomplete]="auto" (keyup)="filterSocialSecurities($event)"
-              (blur)="verifySocialSecuritySelection(personalInformationForm)">
+              (blur)="verifySocialSecuritySelection(personalInformationForm)" (blur)="update(personalInformationForm)">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
                 {{socialSecurity.name}}
               </mat-option>
             </mat-autocomplete>
-            <mat-hint align="start">Escriba al menos un caracter y seleccione la obra social del listado</mat-hint>
+            <mat-hint align="start">Escriba y seleccione la obra social del listado</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #socialSecurityPlan1 name="socialSecurityPlan1" [(ngModel)]="patient.socialSecurityPlan1"
-              maxlength="256" placeholder="Plan de la obra social" [disabled]="!patient.socialSecurity1">
+              maxlength="256" placeholder="Plan de la obra social" [disabled]="!patient.socialSecurity1" (blur)="update(personalInformationForm)">
             <mat-hint align="end">Caracteres utilizados: {{socialSecurityPlan1.value.length}} de 256</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #socialSecurityNumber1 name="socialSecurityNumber1" [(ngModel)]="patient.socialSecurityNumber1"
-              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity1">
+              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity1" (blur)="update(personalInformationForm)">
             <mat-hint align="end">Caracteres utilizados: {{socialSecurityNumber1.value.length}} de 256</mat-hint>
           </mat-form-field>
         </div>
@@ -92,22 +92,22 @@
           <mat-form-field>
             <input matInput type="text" #socialSecurity2="ngModel" name="socialSecurity2" placeholder="Obra social alternativa"
               aria-label="Obra social alternativa" [(ngModel)]="patient.socialSecurity2" [matAutocomplete]="auto"
-              (keyup)="filterSocialSecurities($event)" (blur)="verifySocialSecuritySelection(personalInformationForm)">
+              (keyup)="filterSocialSecurities($event)" (blur)="verifySocialSecuritySelection(personalInformationForm)" (blur)="update(personalInformationForm)">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
                 {{socialSecurity.name}}
               </mat-option>
             </mat-autocomplete>
-            <mat-hint align="start">Escriba al menos un caracter y seleccione la obra social del listado</mat-hint>
+            <mat-hint align="start">Escriba y seleccione la obra social del listado</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #socialSecurityPlan2 name="socialSecurityPlan2" [(ngModel)]="patient.socialSecurityPlan2"
-              maxlength="256" placeholder="Plan de la obra social alternativa" [disabled]="!patient.socialSecurity2">
+              maxlength="256" placeholder="Plan de la obra social alternativa" [disabled]="!patient.socialSecurity2" (blur)="update(personalInformationForm)">
             <mat-hint align="end">Caracteres utilizados: {{socialSecurityPlan2.value.length}} de 256</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #socialSecurityNumber2 name="socialSecurityNumber2" [(ngModel)]="patient.socialSecurityNumber2"
-              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity2">
+              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity2" (blur)="update(personalInformationForm)">
             <mat-hint align="end">Caracteres utilizados: {{socialSecurityNumber2.value.length}} de 256</mat-hint>
           </mat-form-field>
         </div>
@@ -115,58 +115,58 @@
       <mat-tab label="Contacto">
         <mat-form-field>
           <input matInput type="text" #phone1 name="phone1" [(ngModel)]="patient.phone1" placeholder="Teléfono"
-            maxlength="11" pattern="([1-9]{2,4} \d{6,8})">
-          <mat-hint align="start">Ej: 342 4488996. Característica sin 0, celulares sin 15.</mat-hint>
+            maxlength="11" pattern="([1-9]{2,4} \d{6,8})" (blur)="update(personalInformationForm)">
+          <mat-hint align="start">Ej: 342 4488996. Sin 0 y sin 15.</mat-hint>
           <mat-hint align="end">Caracteres utilizados: {{phone1.value.length}} de 11</mat-hint>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" #phone2 name="phone2" [(ngModel)]="patient.phone2" placeholder="Teléfono alternativo"
-            maxlength="11" pattern="([1-9]{2,4} \d{6,8})">
-          <mat-hint align="start">Ej: 342 4488996. Característica sin 0, celulares sin 15.</mat-hint>
+            maxlength="11" pattern="([1-9]{2,4} \d{6,8})" (blur)="update(personalInformationForm)">
+          <mat-hint align="start">Ej: 342 4488996. Sin 0 y sin 15.</mat-hint>
           <mat-hint align="end">Caracteres utilizados: {{phone2.value.length}} de 11</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput type="text" #email name="email" [(ngModel)]="patient.email" maxlength="256" email placeholder="Email">
+          <input matInput type="text" #email name="email" [(ngModel)]="patient.email" maxlength="256" email placeholder="Email" (blur)="update(personalInformationForm)">
           <mat-hint align="end">Caracteres utilizados: {{lastname.value.length}} de 256</mat-hint>
         </mat-form-field>
         <div>
           <mat-form-field>
             <input matInput type="text" #street name="street" [(ngModel)]="patient.street" placeholder="Calle"
-              maxlength="256">
+              maxlength="256" (blur)="update(personalInformationForm)">
             <mat-hint align="end">Caracteres utilizados: {{street.value.length}} de 256</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #number name="number" [(ngModel)]="patient.number" placeholder="Número"
-              maxlength="256" [disabled]="!patient.street">
+              maxlength="256" [disabled]="!patient.street" (blur)="update(personalInformationForm)">
             <mat-hint align="start" *ngIf="!patient.street">Primero ingrese la calle</mat-hint>
             <mat-hint align="end">Caracteres utilizados: {{number.value.length}} de 256</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #floor name="floor" [(ngModel)]="patient.floor" placeholder="Piso" maxlength="256"
-              [disabled]="!patient.number">
+              [disabled]="!patient.number" (blur)="update(personalInformationForm)">
             <mat-hint align="start" *ngIf="!patient.number">Primero ingrese el número</mat-hint>
             <mat-hint align="end">Caracteres utilizados: {{floor.value.length}} de 256</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" #apartment name="apartment" [(ngModel)]="patient.apartment" placeholder="Departamento"
-              maxlength="256" [disabled]="!patient.number">
+              maxlength="256" [disabled]="!patient.number" (blur)="update(personalInformationForm)">
             <mat-hint align="start" *ngIf="!patient.number">Primero ingrese el número</mat-hint>
             <mat-hint align="end">Caracteres utilizados: {{apartment.value.length}} de 256</mat-hint>
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
-            <mat-select #country name="country" [(ngModel)]="patient.country" placeholder="País">
+            <mat-select #country name="country" [(ngModel)]="patient.country" placeholder="País" (selectionChange)="update(personalInformationForm)">
               <mat-option *ngFor="let country of countries" [value]="country">{{country.name}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select #state name="state" [(ngModel)]="patient.state" placeholder="Provincia" [disabled]="!patient.country">
+            <mat-select #state name="state" [(ngModel)]="patient.state" placeholder="Provincia" [disabled]="!patient.country" (selectionChange)="update(personalInformationForm)">
               <mat-option *ngFor="let state of states" [value]="state">{{state.name}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select #city name="city" [(ngModel)]="patient.city" placeholder="Ciudad" [disabled]="!patient.state">
+            <mat-select #city name="city" [(ngModel)]="patient.city" placeholder="Ciudad" [disabled]="!patient.state" (selectionChange)="update(personalInformationForm)">
               <mat-option *ngFor="let city of cities" [value]="city">{{city.name}}</mat-option>
             </mat-select>
           </mat-form-field>
