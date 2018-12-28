@@ -1,24 +1,106 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { SocialSecurity } from './social-security.service';
+import { Country, State, City, COUNTRIES, STATES, CITIES } from './country.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+export class BirthType {
+  id: number;
+  name: string;
+}
+
+const BIRTHTYPES: BirthType[] = [
+  {id: 1, name: 'Parto'},
+  {id: 2, name: 'Cesárea'},
+];
+
 export class Patient {
+  apartment: string;
   birthday: Date;
+  city: City;
+  country: Country;
   document: string;
   documentType: number;
+  email: string;
+  floor: string;
   gender: number;
   id: number;
   lastname: string;
   name: string;
+  number: string;
+  phone1: string;
+  phone2: string;
+  socialSecurity1: SocialSecurity;
+  socialSecurityPlan1: string;
+  socialSecurityNumber1: string;
+  socialSecurity2: SocialSecurity;
+  socialSecurityPlan2: string;
+  socialSecurityNumber2: string;
+  state: State;
+  street: string;
+
+  constructor() {
+    this.documentType = 1;
+    this.country = COUNTRIES[0];
+    this.state = STATES[0];
+  }
 }
 
 export const PATIENTS: Patient[] = [
-  {birthday: new Date(), document: '33666888', documentType: 1, gender: 1, id: 1, lastname: 'De Prueba 1', name: 'Paciente'},
-  {birthday: new Date(), document: '33666999', documentType: 1, gender: 2, id: 2, lastname: 'De Prueba 2', name: 'Paciente'},
+  {
+    apartment: null,
+    birthday: new Date(),
+    city: null,
+    country: null,
+    document: null,
+    documentType: null,
+    email: null,
+    floor: null,
+    gender: null,
+    id: 1,
+    lastname: 'De Prueba',
+    name: 'Paciente 1',
+    number: null,
+    phone1: null,
+    phone2: null,
+    socialSecurity1: null,
+    socialSecurityPlan1: null,
+    socialSecurityNumber1: null,
+    socialSecurity2: null,
+    socialSecurityPlan2: null,
+    socialSecurityNumber2: null,
+    state: null,
+    street: null,
+  },
+  {
+    apartment: null,
+    birthday: new Date(),
+    city: null,
+    country: null,
+    document: null,
+    documentType: null,
+    email: null,
+    floor: null,
+    gender: null,
+    id: 1,
+    lastname: 'De Prueba',
+    name: 'Paciente 2',
+    number: null,
+    phone1: null,
+    phone2: null,
+    socialSecurity1: null,
+    socialSecurityPlan1: null,
+    socialSecurityNumber1: null,
+    socialSecurity2: null,
+    socialSecurityPlan2: null,
+    socialSecurityNumber2: null,
+    state: null,
+    street: null,
+  },
 ];
 
 @Injectable({
@@ -59,5 +141,9 @@ export class PatientService {
       return this.http.get<Patient[]>(`patients/search/${term}`);
     }
     return of([new Patient]);
+  }
+
+  readAllBirthTypes(): Observable<BirthType[]> {
+    return of(BIRTHTYPES);
   }
 }

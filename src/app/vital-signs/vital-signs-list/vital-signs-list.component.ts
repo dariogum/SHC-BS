@@ -35,7 +35,7 @@ export class VitalSignsListComponent implements OnInit {
   }
 
   openVitalSignsBottomSheet(vitalSignsRecord: VitalSigns): void {
-    const data = { title: 'Información del registros de signos vitales', vitalSignsRecord: vitalSignsRecord };
+    const data = { title: 'Información del registro de signos vitales', vitalSignsRecord: vitalSignsRecord };
     this.appService.openBottomSheet(VitalSignsFormComponent, data);
   }
 

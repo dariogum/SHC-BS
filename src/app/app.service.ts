@@ -84,6 +84,22 @@ export class AppService {
       id: data.id,
       lastname: data.attributes.lastname,
       name: data.attributes.name,
+      phone1: data.attributes.phone1,
+      phone2: data.attributes.phone2,
+      email: data.attributes.email,
+      street: data.attributes.street,
+      number: data.attributes.number,
+      floor: data.attributes.floor,
+      apartment: data.attributes.apartment,
+      country: data.attributes.country,
+      state: data.attributes.state,
+      city: data.attributes.city,
+      socialSecurity1: data.attributes.socialSecurity1,
+      socialSecurityPlan1: data.attributes.socialSecurityPlan1,
+      socialSecurityNumber1: data.attributes.socialSecurityNumber1,
+      socialSecurity2: data.attributes.socialSecurity2,
+      socialSecurityPlan2: data.attributes.socialSecurityPlan2,
+      socialSecurityNumber2: data.attributes.socialSecurityNumber2,
     };
     return patient;
   }
