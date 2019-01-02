@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { SocialSecurity } from './social-security.service';
-import { Country, State, City, COUNTRIES, STATES, CITIES } from './country.service';
+import { Country, State, City, COUNTRIES, STATES } from './country.service';
+import { environment } from './../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,7 +28,7 @@ export class Patient {
   city: City;
   comment: string;
   country: Country;
-  document: string;
+  documentNumber: string;
   documentType: number;
   email: string;
   father: string;
@@ -39,6 +40,7 @@ export class Patient {
   mother: string;
   name: string;
   number: string;
+  oldId: number;
   others: string;
   phone1: string;
   phone2: string;
@@ -58,75 +60,6 @@ export class Patient {
   }
 }
 
-export const PATIENTS: Patient[] = [
-  {
-    apgar1: null,
-    apgar2: null,
-    apartment: null,
-    birthday: new Date(),
-    brothers: null,
-    city: null,
-    comment: null,
-    country: null,
-    document: null,
-    documentType: null,
-    email: null,
-    father: null,
-    floor: null,
-    gender: null,
-    gestationalAge: null,
-    id: 1,
-    lastname: 'De Prueba',
-    mother: null,
-    name: 'Paciente 1',
-    number: null,
-    others: null,
-    phone1: null,
-    phone2: null,
-    socialSecurity1: null,
-    socialSecurityPlan1: null,
-    socialSecurityNumber1: null,
-    socialSecurity2: null,
-    socialSecurityPlan2: null,
-    socialSecurityNumber2: null,
-    state: null,
-    street: null,
-  },
-  {
-    apgar1: null,
-    apgar2: null,
-    apartment: null,
-    birthday: new Date(),
-    brothers: null,
-    city: null,
-    comment: null,
-    country: null,
-    document: null,
-    documentType: null,
-    email: null,
-    father: null,
-    floor: null,
-    gender: null,
-    gestationalAge: null,
-    id: 1,
-    lastname: 'De Prueba',
-    mother: null,
-    name: 'Paciente 2',
-    number: null,
-    others: null,
-    phone1: null,
-    phone2: null,
-    socialSecurity1: null,
-    socialSecurityPlan1: null,
-    socialSecurityNumber1: null,
-    socialSecurity2: null,
-    socialSecurityPlan2: null,
-    socialSecurityNumber2: null,
-    state: null,
-    street: null,
-  },
-];
-
 @Injectable({
   providedIn: 'root'
 })
@@ -137,37 +70,79 @@ export class PatientService {
   ) { }
 
   create(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(`patients`, patient, httpOptions);
+    return this.http.post<Patient>(environment.apiURL + `patients`, patient, httpOptions);
   }
 
   read(id: number): Observable<Patient> {
     if (id) {
-      return this.http.get<Patient>(`patients/${id}`);
+      return this.http.get<Patient>(environment.apiURL + `patients/${id}`);
     }
   }
 
   readAll(): Observable<Patient[]> {
-    // return this.http.get<Patient[]>(`patients`);
-    return of(PATIENTS);
+    return this.http.get<Patient[]>(environment.apiURL + `patients`);
   }
 
   update(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(`patients`, patient, httpOptions);
+    return this.http.put<Patient>(environment.apiURL + `patients/${patient.id}`, this.patientToJson(patient), httpOptions);
   }
 
   delete(patient: Patient): Observable<{}> {
-    return this.http.delete(`patients/${patient.id}`, httpOptions);
+    return this.http.delete(environment.apiURL + `patients/${patient.id}`, httpOptions);
   }
 
   search(term: string): Observable<Patient[]> {
     term = term.trim().toLowerCase();
     if (term.length) {
-      return this.http.get<Patient[]>(`patients/search/${term}`);
+      return this.http.get<Patient[]>(environment.apiURL + `patients/search/${term}`);
     }
     return of([new Patient]);
   }
 
   readAllBirthTypes(): Observable<BirthType[]> {
     return of(BIRTHTYPES);
+  }
+
+  patientToJson(patient: Patient) {
+    return {
+      'data': {
+        'attributes': {
+          'apartment': patient.apartment,
+          'apgar1': patient.apgar1,
+          'apgar2': patient.apgar2,
+          'birthday': patient.birthday,
+          'brothers': patient.brothers,
+          'city': patient.city,
+          'comment': patient.comment,
+          'country': patient.country,
+          'documentNumber': patient.documentNumber,
+          'documentType': patient.documentType,
+          'email': patient.email,
+          'father': patient.father,
+          'floor': patient.floor,
+          'gender': patient.gender,
+          'gestationalAge': patient.gestationalAge,
+          'lastname': patient.lastname,
+          'name': patient.name,
+          'number': patient.number,
+          'mother': patient.mother,
+          'oldId': patient.oldId,
+          'others': patient.others,
+          'phone1': patient.phone1,
+          'phone2': patient.phone2,
+          'street': patient.street,
+          'state': patient.state,
+          'socialSecurity1': patient.socialSecurity1,
+          'socialSecurityPlan1': patient.socialSecurityPlan1,
+          'socialSecurityNumber1': patient.socialSecurityNumber1,
+          'socialSecurity2': patient.socialSecurity2,
+          'socialSecurityPlan2': patient.socialSecurityPlan2,
+          'socialSecurityNumber2': patient.socialSecurityNumber2,
+        },
+        'id': patient.id,
+        'relationships': {},
+        'type': 'patient',
+      },
+    };
   }
 }

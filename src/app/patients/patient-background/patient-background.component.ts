@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Patient, PatientService } from './../patient.service';
 
 @Component({
@@ -7,7 +7,7 @@ import { Patient, PatientService } from './../patient.service';
   styleUrls: ['./patient-background.component.css']
 })
 export class PatientBackgroundComponent implements OnInit {
-  patient: Patient = new Patient;
+  @Input() patient: Patient;
 
   constructor(
     private patientService: PatientService,

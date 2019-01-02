@@ -38,7 +38,7 @@ export class AppointmentListComponent implements OnInit {
       switchMap(term => this.appointmentService.search(term))
     ).subscribe(
       appointmentsData => { this.appointments = this.appointmentsParser(appointmentsData); this.searching = false; },
-      error => { this.snackBar.open('Ocurrió un error al buscar los turnos', 'OK', { duration: 2000 }); this.searching = false; }
+      error => { this.snackBar.open('Ocurrió un error al buscar los turnos', 'OK', { duration: 2500 }); this.searching = false; }
     );
   }
 
@@ -69,7 +69,7 @@ export class AppointmentListComponent implements OnInit {
     if (this.schedule && this.date) {
       this.appointmentService.readAll().subscribe(
         appointments => this.appointments = appointments,
-        error => this.snackBar.open('Ocurrió un error al obtener los turnos', 'OK', { duration: 2000 })
+        error => this.snackBar.open('Ocurrió un error al obtener los turnos', 'OK', { duration: 2500 })
       );
     } else {
       this.appointments = [];

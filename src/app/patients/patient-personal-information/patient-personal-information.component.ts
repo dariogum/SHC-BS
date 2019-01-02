@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
@@ -16,15 +16,15 @@ export class PatientPersonalInformationComponent implements OnInit {
   cities: City[] = [];
   countries: Country[] = [];
   filteredSocialSecurities: SocialSecurity[] = [];
-  patient: Patient = new Patient;
+  @Input() patient: Patient;
   socialSecurities: SocialSecurity[] = [];
   states: State[] = [];
 
   constructor(
-    private patientService: PatientService,
-    private socialSecurityService: SocialSecurityService,
     private countryService: CountryService,
+    private patientService: PatientService,
     private snackBar: MatSnackBar,
+    private socialSecurityService: SocialSecurityService,
   ) { }
 
   ngOnInit() {
@@ -80,7 +80,7 @@ export class PatientPersonalInformationComponent implements OnInit {
   updatePatient(): void {
     this.patientService.update(this.patient).subscribe(
       _ => { },
-      error => this.snackBar.open('Ocurrió un error al modificar los datos del paciente', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar los datos del paciente', 'OK', { duration: 2500 })
     );
   }
 

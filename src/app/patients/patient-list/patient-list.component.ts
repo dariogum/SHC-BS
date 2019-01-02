@@ -37,13 +37,13 @@ export class PatientListComponent implements OnInit {
       switchMap(term => this.patientService.search(term))
     ).subscribe(
       patientsData => { this.patients = this.patientsParser(patientsData); this.searching = false; },
-      error => { this.snackBar.open('Ocurrió un error al buscar los pacientes', 'OK', { duration: 2000 }); this.searching = false; }
+      error => { this.snackBar.open('Ocurrió un error al buscar los pacientes', 'OK', { duration: 2500 }); this.searching = false; }
     );
   }
 
-  patientsParser(data: any): Patient[] {
+  patientsParser(patientsData: any): Patient[] {
     const patients: Patient[] = [];
-    data.forEach((patient: any) => {
+    patientsData.data.forEach((patient: any) => {
       patients.push(this.appService.patientParser(patient));
     });
     return patients;
@@ -56,8 +56,8 @@ export class PatientListComponent implements OnInit {
 
   readPatients(): void {
     this.patientService.readAll().subscribe(
-      patients => this.patients = patients,
-      error => this.snackBar.open('Ocurrió un error al obtener los pacientes', 'OK', { duration: 2000 })
+      patientsData => { this.patients = this.patientsParser(patientsData); this.searching = false; },
+      error => this.snackBar.open('Ocurrió un error al obtener los pacientes', 'OK', { duration: 2500 })
     );
   }
 

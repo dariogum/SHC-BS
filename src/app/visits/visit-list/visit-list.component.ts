@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { AppService } from './../../app.service';
 import { VisitFormComponent } from './../visit-form/visit-form.component';
 import { Visit, VisitService } from './../visit.service';
+import { Patient } from 'src/app/patients/patient.service';
 
 @Component({
   selector: 'app-visit-list',
@@ -12,6 +12,7 @@ import { Visit, VisitService } from './../visit.service';
   styleUrls: ['./visit-list.component.css']
 })
 export class VisitListComponent implements OnInit {
+  @Input() patient: Patient;
   visits: Visit[] = [];
   filteredVisits: Visit[] = [];
   date = new Date();
@@ -44,7 +45,7 @@ export class VisitListComponent implements OnInit {
   readVisits(): void {
     this.visitService.readAll().subscribe(
       visits => this.visits = visits,
-      error => this.snackBar.open('Ocurrió un error al obtener las visitas', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al obtener las visitas', 'OK', { duration: 2500 })
     );
   }
 

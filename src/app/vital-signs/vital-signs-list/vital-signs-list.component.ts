@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { AppService } from './../../app.service';
 import { VitalSignsFormComponent } from './../vital-signs-form/vital-signs-form.component';
 import { VitalSigns, VitalSignsService } from '../vital-signs.service';
+import { Patient } from 'src/app/patients/patient.service';
 
 @Component({
   selector: 'app-vital-signs-list',
@@ -12,6 +13,7 @@ import { VitalSigns, VitalSignsService } from '../vital-signs.service';
   styleUrls: ['./vital-signs-list.component.css']
 })
 export class VitalSignsListComponent implements OnInit {
+  @Input() patient: Patient;
   vitalSignsRecords: VitalSigns[] = [];
   date = new Date();
   newVitalSignsRecord: VitalSigns = new VitalSigns;
@@ -42,7 +44,7 @@ export class VitalSignsListComponent implements OnInit {
   readVitalSignsRecords(): void {
     this.vitalSignsRecordService.readAll().subscribe(
       vitalSignsRecords => this.vitalSignsRecords = vitalSignsRecords,
-      error => this.snackBar.open('Ocurrió un error al obtener los registros de signos vitales', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al obtener los registros de signos vitales', 'OK', { duration: 2500 })
     );
   }
 

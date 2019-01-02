@@ -54,3 +54,7 @@ mat-list-item:hover {
 .mat-input-element:disabled {
     color: rgba(0,0,0,.87);
 }
+
+mat-spinner {
+    margin: 16px auto;
+}

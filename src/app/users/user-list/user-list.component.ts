@@ -34,7 +34,7 @@ export class UserListComponent implements OnInit {
       switchMap(term => this.userService.search(term))
     ).subscribe(
       usersData => { this.users = this.usersParser(usersData); this.searching = false; },
-      error => { this.snackBar.open('Ocurrió un error al buscar los usuarios', 'OK', { duration: 2000 }); this.searching = false; }
+      error => { this.snackBar.open('Ocurrió un error al buscar los usuarios', 'OK', { duration: 2500 }); this.searching = false; }
     );
   }
 
@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
   readUsers(): void {
     this.userService.readAll().subscribe(
       users => this.users = users,
-      error => this.snackBar.open('Ocurrió un error al obtener los usuarios', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al obtener los usuarios', 'OK', { duration: 2500 })
     );
   }
 

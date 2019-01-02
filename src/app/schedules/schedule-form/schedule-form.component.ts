@@ -35,7 +35,7 @@ export class ScheduleFormComponent implements OnInit {
       schedule => {
         this.dismissBottomSheet('La agenda fue registrada correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar la agenda', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar la agenda', 'OK', { duration: 2500 })
     );
   }
 
@@ -44,7 +44,7 @@ export class ScheduleFormComponent implements OnInit {
       schedule => {
         this.dismissBottomSheet('La agenda fue modificada correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al modificar la agenda', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar la agenda', 'OK', { duration: 2500 })
     );
   }
 
@@ -65,7 +65,7 @@ export class ScheduleFormComponent implements OnInit {
           _ => {
             this.dismissBottomSheet('La agenda fue eliminada correctamente');
           },
-          error => this.snackBar.open('Ocurrió un error al eliminar la agenda', 'OK', { duration: 2000 })
+          error => this.snackBar.open('Ocurrió un error al eliminar la agenda', 'OK', { duration: 2500 })
         );
       }
     });

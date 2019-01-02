@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { AppService } from './../../app.service';
 import { Patient, PatientService } from './../patient.service';
 import { MatAccordion, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-patient-clinic-history',
@@ -12,7 +12,9 @@ import { MatAccordion, MatDialog, MatSnackBar, MatDialogRef } from '@angular/mat
 })
 export class PatientClinicHistoryComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  patient: Patient = new Patient;
+  loading: boolean;
+  patient: Patient;
+  patientId: number;
 
   constructor(
     private appService: AppService,
@@ -23,7 +25,13 @@ export class PatientClinicHistoryComponent implements OnInit {
     private snackBar: MatSnackBar,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.loading = true;
+    this.patientService.read(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe(
+      patientData => { this.patient = this.appService.patientParser(patientData); this.loading = false; },
+      error => this.snackBar.open('Ocurrió un error al cargar la historia clínica del paciente', 'OK', { duration: 2500 })
+    );
+  }
 
   goToPatients(): void {
     this.router.navigate(['/patients']);
@@ -43,8 +51,8 @@ export class PatientClinicHistoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmation => {
       if (confirmation) {
         this.patientService.delete(this.patient).subscribe(
-          _ => { },
-          error => this.snackBar.open('Ocurrió un error al eliminar el paciente', 'OK', { duration: 2000 })
+          _ => this.goToPatients(),
+          error => this.snackBar.open('Ocurrió un error al eliminar el paciente', 'OK', { duration: 2500 })
         );
       }
     });
@@ -69,6 +77,6 @@ export class PatientDeleteComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PatientDeleteComponent>
-  ) {}
+  ) { }
 
 }

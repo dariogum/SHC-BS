@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
-import { Patient, PATIENTS } from './../patients/patient.service';
+import { Patient } from './../patients/patient.service';
 import { Schedule, SCHEDULES } from './../schedules/schedule.service';
 import { User, USERS } from './../users/user.service';
 
@@ -31,22 +31,22 @@ export class Appointment {
 const APPOINTMENTS: Appointment[] = [
   {
     canceled: false, confirmed: false, createdAt: new Date(), date: new Date(), hour: '10:45',
-    id: 1, indications: null, patient: PATIENTS[0], professional: USERS[0], reprogrammed: false,
+    id: 1, indications: null, patient: null, professional: USERS[0], reprogrammed: false,
     reminderSent: false, schedule: SCHEDULES[0], updatedAt: new Date()
   },
   {
     canceled: false, confirmed: false, createdAt: new Date(), date: new Date(), hour: '11:45',
-    id: 2, indications: null, patient: PATIENTS[1], professional: USERS[1], reprogrammed: false,
+    id: 2, indications: null, patient: null, professional: USERS[1], reprogrammed: false,
     reminderSent: false, schedule: SCHEDULES[1], updatedAt: new Date()
   },
   {
     canceled: false, confirmed: false, createdAt: new Date(), date: new Date(), hour: '12:45',
-    id: 3, indications: null, patient: PATIENTS[0], professional: USERS[0], reprogrammed: false,
+    id: 3, indications: null, patient: null, professional: USERS[0], reprogrammed: false,
     reminderSent: false, schedule: SCHEDULES[0], updatedAt: new Date()
   },
   {
     canceled: false, confirmed: false, createdAt: new Date(), date: new Date(), hour: '13:45',
-    id: 4, indications: null, patient: PATIENTS[1], professional: USERS[1], reprogrammed: false,
+    id: 4, indications: null, patient: null, professional: USERS[1], reprogrammed: false,
     reminderSent: false, schedule: SCHEDULES[1], updatedAt: new Date()
   },
 ];

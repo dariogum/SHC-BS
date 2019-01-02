@@ -20,7 +20,7 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="!data.patient.newborn">
-        <input matInput type="number" #documentNumber name="document" [(ngModel)]="data.patient.document"
+        <input matInput type="number" #documentNumber name="documentNumber" [(ngModel)]="data.patient.documentNumber"
           placeholder="Número de documento" maxlength="8" required>
         <mat-hint align="start">Ingrese sólo números, sin puntos ni espacios</mat-hint>
         <mat-hint align="end">Números utilizados: {{documentNumber.value.length}} de 8</mat-hint>

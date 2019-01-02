@@ -2,15 +2,17 @@
   <button mat-icon-button matTooltip="Volver al listado de pacientes" (click)="goToPatients()">
     <mat-icon aria-label="Volver">arrow_back</mat-icon>
   </button>
-  <span>{{patient.lastname}} {{patient.name}}</span>
+  <span *ngIf="loading">Cargando la historia clínica...</span>
+  <span *ngIf="patient">{{patient.lastname}} {{patient.name}}</span>
+  <span *ngIf="patient && patient.oldId">Legajo: {{patient.oldId}}</span>
   <span class="toolbar-spacer"></span>
-  <button mat-icon-button *ngIf="patient.id" color="warn" matTooltip="Eliminar el paciente" (click)="deletePatient()">
+  <button mat-icon-button *ngIf="patient" color="warn" matTooltip="Eliminar el paciente" (click)="deletePatient()">
     <mat-icon>delete</mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Abrir todas las secciones" (click)="openAll()">
+  <button mat-icon-button matTooltip="Abrir todas las secciones" (click)="openAll()" *ngIf="patient">
     <mat-icon>unfold_more</mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Cerrar todas las secciones" (click)="closeAll()">
+  <button mat-icon-button matTooltip="Cerrar todas las secciones" (click)="closeAll()" *ngIf="patient">
     <mat-icon>unfold_less</mat-icon>
   </button>
   <button mat-icon-button matTooltip="Abrir el menu" (click)="appService.toggleSidenav()">
@@ -19,34 +21,35 @@
 </mat-toolbar>
 <mat-card class="mat-elevation-z0">
   <mat-card-content>
-    <mat-accordion multi="true" #accordion>
+    <mat-spinner diameter="50" strokeWidth="5" *ngIf="loading"></mat-spinner>
+    <mat-accordion multi="true" #accordion *ngIf="patient">
 
-      <mat-expansion-panel expanded="true">
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           Información personal
         </mat-expansion-panel-header>
-        <app-patient-personal-information></app-patient-personal-information>
+        <app-patient-personal-information [patient]="patient"></app-patient-personal-information>
       </mat-expansion-panel>
 
-      <mat-expansion-panel expanded="true">
+      <mat-expansion-panel>
         <mat-expansion-panel-header>
           Antecedentes
         </mat-expansion-panel-header>
-        <app-patient-background></app-patient-background>
+        <app-patient-background [patient]="patient"></app-patient-background>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           Signos vitales
         </mat-expansion-panel-header>
-        <app-vital-signs-list></app-vital-signs-list>
+        <app-vital-signs-list [patient]="patient"></app-vital-signs-list>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           Visitas
         </mat-expansion-panel-header>
-        <app-visit-list></app-visit-list>
+        <app-visit-list [patient]="patient"></app-visit-list>
       </mat-expansion-panel>
 
       <mat-expansion-panel>

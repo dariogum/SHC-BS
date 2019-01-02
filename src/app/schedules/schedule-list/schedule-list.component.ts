@@ -36,7 +36,7 @@ export class ScheduleListComponent implements OnInit {
       switchMap(term => this.scheduleService.search(term))
     ).subscribe(
       schedulesData => { this.schedules = this.schedulesParser(schedulesData); this.searching = false; },
-      error => { this.snackBar.open('Ocurrió un error al buscar las agendas', 'OK', { duration: 2000 }); this.searching = false; }
+      error => { this.snackBar.open('Ocurrió un error al buscar las agendas', 'OK', { duration: 2500 }); this.searching = false; }
     );
   }
 
@@ -56,7 +56,7 @@ export class ScheduleListComponent implements OnInit {
   readSchedules(): void {
     this.scheduleService.readAll().subscribe(
       schedules => this.schedules = schedules,
-      error => this.snackBar.open('Ocurrió un error al obtener las agendas', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al obtener las agendas', 'OK', { duration: 2500 })
     );
   }
 

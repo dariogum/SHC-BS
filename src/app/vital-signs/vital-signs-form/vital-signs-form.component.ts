@@ -36,7 +36,7 @@ export class VitalSignsFormComponent implements OnInit {
       vitalSignsRecord => {
         this.dismissBottomSheet('Los signos vitales fueron registrados correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar los signos vitales', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar los signos vitales', 'OK', { duration: 2500 })
     );
   }
 
@@ -45,7 +45,7 @@ export class VitalSignsFormComponent implements OnInit {
       vitalSignsRecord => {
         this.dismissBottomSheet('El registro de los signos vitales fuer modificado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al modificar el registro de los signos vitales', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar el registro de los signos vitales', 'OK', { duration: 2500 })
     );
   }
 
@@ -58,7 +58,7 @@ export class VitalSignsFormComponent implements OnInit {
           _ => {
             this.dismissBottomSheet('El registro de signos vitales fue eliminado correctamente');
           },
-          error => this.snackBar.open('Ocurrió un error al eliminar el registro de signos vitales', 'OK', { duration: 2000 })
+          error => this.snackBar.open('Ocurrió un error al eliminar el registro de signos vitales', 'OK', { duration: 2500 })
         );
       }
     });

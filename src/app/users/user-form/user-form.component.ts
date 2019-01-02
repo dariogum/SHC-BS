@@ -35,7 +35,7 @@ export class UserFormComponent implements OnInit {
       user => {
         this.dismissBottomSheet('El usuario fue registrado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar el usuario', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar el usuario', 'OK', { duration: 2500 })
     );
   }
 
@@ -44,7 +44,7 @@ export class UserFormComponent implements OnInit {
       user => {
         this.dismissBottomSheet('El usuario fue modificado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al modificar el usuario', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar el usuario', 'OK', { duration: 2500 })
     );
   }
 

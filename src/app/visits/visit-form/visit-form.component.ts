@@ -36,7 +36,7 @@ export class VisitFormComponent implements OnInit {
       visit => {
         this.dismissBottomSheet('La visita fue registrada correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar la visita', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar la visita', 'OK', { duration: 2500 })
     );
   }
 
@@ -45,7 +45,7 @@ export class VisitFormComponent implements OnInit {
       visit => {
         this.dismissBottomSheet('La visita fue modificada correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al modificar la visita', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar la visita', 'OK', { duration: 2500 })
     );
   }
 
@@ -58,7 +58,7 @@ export class VisitFormComponent implements OnInit {
           _ => {
             this.dismissBottomSheet('La visita fue eliminada correctamente');
           },
-          error => this.snackBar.open('Ocurrió un error al eliminar la visita', 'OK', { duration: 2000 })
+          error => this.snackBar.open('Ocurrió un error al eliminar la visita', 'OK', { duration: 2500 })
         );
       }
     });

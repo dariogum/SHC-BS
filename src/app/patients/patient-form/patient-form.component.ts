@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MatSnackBar } from '@angular/material';
 
 import { Patient, PatientService } from './../patient.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -11,6 +12,7 @@ import { Patient, PatientService } from './../patient.service';
 export class PatientFormComponent implements OnInit {
 
   constructor(
+    private appService: AppService,
     private bottomSheetRef: MatBottomSheetRef<PatientFormComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private patientService: PatientService,
@@ -23,8 +25,6 @@ export class PatientFormComponent implements OnInit {
   onSubmit(): void {
     if (!this.data.patient.id) {
       this.createPatient();
-    } else {
-      this.updatePatient();
     }
   }
 
@@ -33,16 +33,7 @@ export class PatientFormComponent implements OnInit {
       patient => {
         this.dismissBottomSheet('El paciente fue registrado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar el paciente', 'OK', { duration: 2000 })
-    );
-  }
-
-  updatePatient(): void {
-    this.patientService.update(this.data.patient).subscribe(
-      patient => {
-        this.dismissBottomSheet('El paciente fue modificado correctamente');
-      },
-      error => this.snackBar.open('Ocurrió un error al modificar el turno', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar el paciente', 'OK', { duration: 2500 })
     );
   }
 

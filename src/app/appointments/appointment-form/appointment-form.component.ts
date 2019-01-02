@@ -2,8 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
+import { AppService } from './../../app.service';
 import { Appointment, AppointmentService } from './../appointment.service';
-import { Patient, PATIENTS } from './../../patients/patient.service';
+import { Patient, PatientService } from './../../patients/patient.service';
 import { USERS } from './../../users/user.service';
 import { SCHEDULES } from './../../schedules/schedule.service';
 
@@ -14,13 +15,16 @@ import { SCHEDULES } from './../../schedules/schedule.service';
 })
 export class AppointmentFormComponent implements OnInit {
   filteredPatients: Patient[];
-  patients = PATIENTS;
+  patients: Patient[];
   professionals = USERS;
   schedules = SCHEDULES;
+  searching: boolean;
   today = new Date();
 
   constructor(
+    private appService: AppService,
     private appointmentService: AppointmentService,
+    private patientService: PatientService,
     private bottomSheetRef: MatBottomSheetRef<AppointmentFormComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private dialog: MatDialog,
@@ -28,6 +32,7 @@ export class AppointmentFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.readPatients();
   }
 
   onSubmit(): void {
@@ -43,7 +48,7 @@ export class AppointmentFormComponent implements OnInit {
       appointment => {
         this.dismissBottomSheet('El turno fue registrado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al registrar el turno', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al registrar el turno', 'OK', { duration: 2500 })
     );
   }
 
@@ -52,7 +57,7 @@ export class AppointmentFormComponent implements OnInit {
       appointment => {
         this.dismissBottomSheet('El turno fue modificado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al modificar el turno', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al modificar el turno', 'OK', { duration: 2500 })
     );
   }
 
@@ -66,7 +71,7 @@ export class AppointmentFormComponent implements OnInit {
           appointment => {
             this.dismissBottomSheet('El turno fue cancelado correctamente');
           },
-          error => this.snackBar.open('Ocurrió un error al cancelar el turno', 'OK', { duration: 2000 })
+          error => this.snackBar.open('Ocurrió un error al cancelar el turno', 'OK', { duration: 2500 })
         );
       }
     });
@@ -78,7 +83,7 @@ export class AppointmentFormComponent implements OnInit {
       appointment => {
         this.dismissBottomSheet('El turno fue confirmado correctamente');
       },
-      error => this.snackBar.open('Ocurrió un error al confirmar el turno', 'OK', { duration: 2000 })
+      error => this.snackBar.open('Ocurrió un error al confirmar el turno', 'OK', { duration: 2500 })
     );
   }
 
@@ -92,6 +97,21 @@ export class AppointmentFormComponent implements OnInit {
       bottomSheet: 'appointment',
       message: message
     });
+  }
+
+  patientsParser(patientsData: any): Patient[] {
+    const patients: Patient[] = [];
+    patientsData.data.forEach((patient: any) => {
+      patients.push(this.appService.patientParser(patient));
+    });
+    return patients;
+  }
+
+  readPatients(): void {
+    this.patientService.readAll().subscribe(
+      patientsData => { this.patients = this.patientsParser(patientsData); this.searching = false; },
+      error => this.snackBar.open('Ocurrió un error al obtener los pacientes', 'OK', { duration: 2500 })
+    );
   }
 
   filterPatients(event): void {

@@ -33,7 +33,7 @@ export class AppService {
 
     bottomSheetRef.afterDismissed().subscribe(bottomSheetData => {
       if (bottomSheetData && bottomSheetData.message) {
-        this.snackBar.open(bottomSheetData.message, 'OK', { duration: 2000 });
+        this.snackBar.open(bottomSheetData.message, 'OK', { duration: 2500 });
       }
     });
   }
@@ -76,6 +76,7 @@ export class AppService {
   }
 
   patientParser(data: any): Patient {
+    data = data.data;
     const patient: Patient = {
       apartment: data.attributes.apartment,
       apgar1: data.attributes.apgar1,
@@ -85,7 +86,7 @@ export class AppService {
       city: data.attributes.city,
       comment: data.attributes.comment,
       country: data.attributes.country,
-      document: data.attributes.document,
+      documentNumber: data.attributes.documentNumber,
       documentType: data.attributes.documentType,
       email: data.attributes.email,
       father: data.attributes.father,
@@ -97,6 +98,7 @@ export class AppService {
       name: data.attributes.name,
       number: data.attributes.number,
       mother: data.attributes.mother,
+      oldId: data.attributes.oldId,
       others: data.attributes.others,
       phone1: data.attributes.phone1,
       phone2: data.attributes.phone2,
