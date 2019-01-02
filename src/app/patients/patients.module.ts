@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { AgePipe } from './../age.pipe';
 import { PatientsRoutingModule } from './patients-routing.module';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientClinicHistoryComponent } from './patient-clinic-history/patient-clinic-history.component';
@@ -36,7 +37,15 @@ import { PatientPersonalInformationComponent } from './patient-personal-informat
 import { PatientBackgroundComponent } from './patient-background/patient-background.component';
 
 @NgModule({
-  declarations: [PatientListComponent, PatientClinicHistoryComponent, VisitListComponent, VitalSignsListComponent, PatientPersonalInformationComponent, PatientBackgroundComponent],
+  declarations: [
+    AgePipe,
+    PatientListComponent,
+    PatientClinicHistoryComponent,
+    VisitListComponent,
+    VitalSignsListComponent,
+    PatientPersonalInformationComponent,
+    PatientBackgroundComponent,
+  ],
   imports: [
     CommonModule,
     PatientsRoutingModule,

@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
         if (user.id) {
           this.stepper.next();
         } else {
-          this.snackBar.open('Verifique su usuario', 'OK', { duration: 2500 })
+          this.snackBar.open('Verifique su usuario', 'OK', { duration: 2500 });
         }
       },
       error => {
@@ -43,7 +43,7 @@ export class SigninComponent implements OnInit {
     if (this.authenticationService.verifyPassword(this.email, this.password)) {
       this.router.navigate(['patients']);
     } else {
-      this.snackBar.open('Verifique su usuario y contraseña', 'OK', { duration: 2500 })
+      this.snackBar.open('Verifique su usuario y contraseña', 'OK', { duration: 2500 });
     }
   }
 

@@ -70,7 +70,7 @@ export class PatientService {
   ) { }
 
   create(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(environment.apiURL + `patients`, patient, httpOptions);
+    return this.http.post<Patient>(environment.apiURL + `patients`, this.patientToJson(patient), httpOptions);
   }
 
   read(id: number): Observable<Patient> {
@@ -140,7 +140,7 @@ export class PatientService {
           'socialSecurityNumber2': patient.socialSecurityNumber2,
         },
         'id': patient.id,
-        'relationships': {},
+        'relationships': [],
         'type': 'patient',
       },
     };

@@ -26,7 +26,12 @@
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          Información personal
+          <mat-panel-title>
+            Información personal
+          </mat-panel-title>
+          <mat-panel-description>
+            Edad: {{patient.birthday | age}}
+          </mat-panel-description>
         </mat-expansion-panel-header>
         <app-patient-personal-information [patient]="patient"></app-patient-personal-information>
       </mat-expansion-panel>
