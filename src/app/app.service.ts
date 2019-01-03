@@ -76,7 +76,6 @@ export class AppService {
   }
 
   patientParser(data: any): Patient {
-    data = data.data;
     const patient: Patient = {
       apartment: data.attributes.apartment,
       apgar1: data.attributes.apgar1,

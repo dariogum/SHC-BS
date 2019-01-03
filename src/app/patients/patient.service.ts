@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { SocialSecurity } from './social-security.service';
 import { Country, State, City, COUNTRIES, STATES } from './country.service';
 import { environment } from './../../environments/environment';
+import * as moment from 'moment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -69,32 +70,32 @@ export class PatientService {
     private http: HttpClient,
   ) { }
 
-  create(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(environment.apiURL + `patients`, this.patientToJson(patient), httpOptions);
+  create(patient: Patient): Observable<any> {
+    return this.http.post<any>(environment.apiURL + `patients`, this.patientToJson(patient), httpOptions);
   }
 
-  read(id: number): Observable<Patient> {
+  read(id: number): Observable<any> {
     if (id) {
-      return this.http.get<Patient>(environment.apiURL + `patients/${id}`);
+      return this.http.get<any>(environment.apiURL + `patients/${id}`);
     }
   }
 
-  readAll(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(environment.apiURL + `patients`);
+  readAll(): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiURL + `patients`);
   }
 
-  update(patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(environment.apiURL + `patients/${patient.id}`, this.patientToJson(patient), httpOptions);
+  update(patient: Patient): Observable<any> {
+    return this.http.put<any>(environment.apiURL + `patients/${patient.id}`, this.patientToJson(patient), httpOptions);
   }
 
   delete(patient: Patient): Observable<{}> {
     return this.http.delete(environment.apiURL + `patients/${patient.id}`, httpOptions);
   }
 
-  search(term: string): Observable<Patient[]> {
+  search(term: string): Observable<any[]> {
     term = term.trim().toLowerCase();
     if (term.length) {
-      return this.http.get<Patient[]>(environment.apiURL + `patients/search/${term}`);
+      return this.http.get<any[]>(environment.apiURL + `patients/search/${term}`);
     }
     return of([new Patient]);
   }
@@ -104,17 +105,20 @@ export class PatientService {
   }
 
   patientToJson(patient: Patient) {
+    const city = patient.city ? patient.city.id : null;
+    const country = patient.country ? patient.country.id : null;
+    const state = patient.state ? patient.state.id : null;
     return {
       'data': {
         'attributes': {
           'apartment': patient.apartment,
           'apgar1': patient.apgar1,
           'apgar2': patient.apgar2,
-          'birthday': patient.birthday,
+          'birthday': moment(patient.birthday).format('YYYY-MM-DD'),
           'brothers': patient.brothers,
-          'city': patient.city,
+          'city': city,
           'comment': patient.comment,
-          'country': patient.country,
+          'country': country,
           'documentNumber': patient.documentNumber,
           'documentType': patient.documentType,
           'email': patient.email,
@@ -131,7 +135,7 @@ export class PatientService {
           'phone1': patient.phone1,
           'phone2': patient.phone2,
           'street': patient.street,
-          'state': patient.state,
+          'state': state,
           'socialSecurity1': patient.socialSecurity1,
           'socialSecurityPlan1': patient.socialSecurityPlan1,
           'socialSecurityNumber1': patient.socialSecurityNumber1,

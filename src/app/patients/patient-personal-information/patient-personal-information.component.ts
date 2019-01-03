@@ -19,6 +19,7 @@ export class PatientPersonalInformationComponent implements OnInit {
   @Input() patient: Patient;
   socialSecurities: SocialSecurity[] = [];
   states: State[] = [];
+  today = new Date();
 
   constructor(
     private countryService: CountryService,

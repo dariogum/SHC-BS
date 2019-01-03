@@ -9,10 +9,10 @@
   <button mat-icon-button *ngIf="patient" color="warn" matTooltip="Eliminar el paciente" (click)="deletePatient()">
     <mat-icon>delete</mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Abrir todas las secciones" (click)="openAll()" *ngIf="patient">
+  <button mat-icon-button matTooltip="Abrir todas las secciones" (click)="openAll()" *ngIf="patient && !expanded">
     <mat-icon>unfold_more</mat-icon>
   </button>
-  <button mat-icon-button matTooltip="Cerrar todas las secciones" (click)="closeAll()" *ngIf="patient">
+  <button mat-icon-button matTooltip="Cerrar todas las secciones" (click)="closeAll()" *ngIf="patient && expanded">
     <mat-icon>unfold_less</mat-icon>
   </button>
   <button mat-icon-button matTooltip="Abrir el menu" (click)="appService.toggleSidenav()">

@@ -13,8 +13,9 @@ export class AgePipe implements PipeTransform {
     }
     const today = moment();
     const birthday = moment(value);
-    // tslint:disable-next-line
-    const diff = moment.preciseDiff(today, birthday, true);
+    /* tslint:disable */
+    const diff = (moment as any).preciseDiff(today, birthday, true);
+    /* tslint:enable */
     let age = '';
     if (diff.years) {
       age = age + diff.years + ' años ';
@@ -24,6 +25,9 @@ export class AgePipe implements PipeTransform {
     }
     if (diff.days) {
       age = age + diff.days + ' días';
+    }
+    if (age.length === 0) {
+      age = 'Recién nacido';
     }
     return age;
   }

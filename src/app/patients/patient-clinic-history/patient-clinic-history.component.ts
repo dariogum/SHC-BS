@@ -12,6 +12,7 @@ import { AppService } from 'src/app/app.service';
 })
 export class PatientClinicHistoryComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
+  expanded = false;
   loading: boolean;
   patient: Patient;
   patientId: number;
@@ -28,7 +29,7 @@ export class PatientClinicHistoryComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.patientService.read(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe(
-      patientData => { this.patient = this.appService.patientParser(patientData); this.loading = false; },
+      patientData => { this.patient = this.appService.patientParser(patientData.data); this.loading = false; },
       error => this.snackBar.open('Ocurrió un error al cargar la historia clínica del paciente', 'OK', { duration: 2500 })
     );
   }
@@ -38,10 +39,12 @@ export class PatientClinicHistoryComponent implements OnInit {
   }
 
   closeAll(): void {
+    this.expanded = false;
     this.accordion.closeAll();
   }
 
   openAll(): void {
+    this.expanded = true;
     this.accordion.openAll();
   }
 
@@ -51,7 +54,7 @@ export class PatientClinicHistoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirmation => {
       if (confirmation) {
         this.patientService.delete(this.patient).subscribe(
-          _ => this.goToPatients(),
+          _ => { this.snackBar.open('El paciente fue eliminado correctamente', 'OK', { duration: 2500 }); this.goToPatients(); },
           error => this.snackBar.open('Ocurrió un error al eliminar el paciente', 'OK', { duration: 2500 })
         );
       }

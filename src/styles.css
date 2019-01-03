@@ -58,3 +58,8 @@ mat-list-item:hover {
 mat-spinner {
     margin: 16px auto;
 }
+
+mat-toolbar span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
