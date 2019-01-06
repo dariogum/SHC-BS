@@ -10,49 +10,29 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-export class BirthType {
-  id: number;
-  name: string;
-}
-
-const BIRTHTYPES: BirthType[] = [
-  { id: 1, name: 'Parto' },
-  { id: 2, name: 'Cesárea' },
-];
-
 export class Patient {
-  apgar1: number;
-  apgar2: number;
-  apartment: string;
-  birthday: Date;
-  brothers: string;
-  city: City;
-  comment: string;
-  country: Country;
-  documentNumber: string;
-  documentType: number;
-  email: string;
-  father: string;
-  floor: string;
-  gender: number;
-  gestationalAge: number;
   id: number;
-  lastname: string;
-  mother: string;
-  name: string;
-  number: string;
   oldId: number;
-  others: string;
+  lastname: string;
+  name: string;
+  documentType: number;
+  documentNumber: string;
+  birthdate: Date;
+  sex: number;
+  birthType: number;
+  birthWeight: number;
+  bloodType: number;
+  rhFactor: number;
   phone1: string;
   phone2: string;
-  socialSecurity1: SocialSecurity;
-  socialSecurityPlan1: string;
-  socialSecurityNumber1: string;
-  socialSecurity2: SocialSecurity;
-  socialSecurityPlan2: string;
-  socialSecurityNumber2: string;
-  state: State;
+  email: string;
   street: string;
+  streetNumber: string;
+  floor: string;
+  flat: string;
+  country: Country;
+  state: State;
+  city: City;
 
   constructor() {
     this.documentType = 1;
@@ -100,10 +80,6 @@ export class PatientService {
     return of([new Patient]);
   }
 
-  readAllBirthTypes(): Observable<BirthType[]> {
-    return of(BIRTHTYPES);
-  }
-
   patientToJson(patient: Patient) {
     const city = patient.city ? patient.city.id : null;
     const country = patient.country ? patient.country.id : null;
@@ -111,37 +87,27 @@ export class PatientService {
     return {
       'data': {
         'attributes': {
-          'apartment': patient.apartment,
-          'apgar1': patient.apgar1,
-          'apgar2': patient.apgar2,
-          'birthday': moment(patient.birthday).format('YYYY-MM-DD'),
-          'brothers': patient.brothers,
-          'city': city,
-          'comment': patient.comment,
-          'country': country,
-          'documentNumber': patient.documentNumber,
-          'documentType': patient.documentType,
-          'email': patient.email,
-          'father': patient.father,
-          'floor': patient.floor,
-          'gender': patient.gender,
-          'gestationalAge': patient.gestationalAge,
+          'old_id': patient.oldId,
           'lastname': patient.lastname,
           'name': patient.name,
-          'number': patient.number,
-          'mother': patient.mother,
-          'oldId': patient.oldId,
-          'others': patient.others,
-          'phone1': patient.phone1,
-          'phone2': patient.phone2,
+          'document_type': patient.documentType,
+          'document_number': patient.documentNumber,
+          'birthdate': moment(patient.birthdate).format('YYYY-MM-DD'),
+          'sex': patient.sex,
+          'birth_type': patient.birthType,
+          'birth_weight': patient.birthWeight,
+          'blood_type': patient.bloodType,
+          'rh_factor': patient.rhFactor,
+          'phone_1': patient.phone1,
+          'phone_2': patient.phone2,
+          'email': patient.email,
           'street': patient.street,
+          'street_number': patient.streetNumber,
+          'floor': patient.floor,
+          'flat': patient.flat,
+          'country': country,
           'state': state,
-          'socialSecurity1': patient.socialSecurity1,
-          'socialSecurityPlan1': patient.socialSecurityPlan1,
-          'socialSecurityNumber1': patient.socialSecurityNumber1,
-          'socialSecurity2': patient.socialSecurity2,
-          'socialSecurityPlan2': patient.socialSecurityPlan2,
-          'socialSecurityNumber2': patient.socialSecurityNumber2,
+          'city': city,
         },
         'id': patient.id,
         'relationships': [],

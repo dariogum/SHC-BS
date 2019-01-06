@@ -9,13 +9,11 @@ export class AgePipe implements PipeTransform {
 
   transform(value: Date, args?: any): string {
     if (!value) {
-      return 'No se ha definido una fecha';
+      return 'Sin fecha de nacimiento';
     }
     const today = moment();
-    const birthday = moment(value);
-    /* tslint:disable */
-    const diff = (moment as any).preciseDiff(today, birthday, true);
-    /* tslint:enable */
+    const birthdate = moment(value);
+    const diff = (moment as any).preciseDiff(today, birthdate, true);
     let age = '';
     if (diff.years) {
       age = age + diff.years + ' años ';

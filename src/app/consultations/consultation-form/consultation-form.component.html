@@ -5,43 +5,43 @@
       <mat-tab-group mat-align-tabs="center" [dynamicHeight]="true">
         <mat-tab label="Informe">
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" [max]="today" #date name="date" [(ngModel)]="data.visit.date"
+            <input matInput [matDatepicker]="picker" [max]="today" #date name="date" [(ngModel)]="data.consultation.date"
               placeholder="Fecha" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker></mat-datepicker>
           </mat-form-field>
           <mat-form-field>
-            <textarea matInput #diagnostic name="diagnostic" [(ngModel)]="data.visit.diagnostic" placeholder="Diagnóstico"
+            <textarea matInput #diagnostic name="diagnostic" [(ngModel)]="data.consultation.diagnostic" placeholder="Diagnóstico"
               required></textarea>
           </mat-form-field>
           <mat-form-field>
-            <textarea matInput #treatment name="treatment" [(ngModel)]="data.visit.treatment" placeholder="Tratamiento"></textarea>
+            <textarea matInput #treatment name="treatment" [(ngModel)]="data.consultation.treatment" placeholder="Tratamiento"></textarea>
           </mat-form-field>
           <mat-form-field>
-            <textarea matInput #studies name="studies" [(ngModel)]="data.visit.studies" placeholder="Estudios"></textarea>
+            <textarea matInput #studies name="studies" [(ngModel)]="data.consultation.studies" placeholder="Estudios"></textarea>
           </mat-form-field>
         </mat-tab>
         <mat-tab label="Constantes">
           <mat-form-field>
-            <input matInput type="number" #weight name="weight" [(ngModel)]="data.visit.weight" placeholder="Peso"
+            <input matInput type="number" #weight name="weight" [(ngModel)]="data.consultation.weight" placeholder="Peso"
               maxlength="6">
             <span matSuffix>kg</span>
             <mat-hint align="end">Números utilizados: {{weight.value.length}} de 6</mat-hint>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="number" #height name="height" [(ngModel)]="data.visit.height" placeholder="Talla"
+            <input matInput type="number" #height name="height" [(ngModel)]="data.consultation.height" placeholder="Talla"
               maxlength="6">
             <span matSuffix>cm</span>
             <mat-hint align="end">Números utilizados: {{height.value.length}} de 6</mat-hint>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="number" #headCircumference name="headCircumference" [(ngModel)]="data.visit.headCircumference"
+            <input matInput type="number" #headCircumference name="headCircumference" [(ngModel)]="data.consultation.headCircumference"
               placeholder="Perímetro cefálico" maxlength="6">
             <span matSuffix>cm</span>
             <mat-hint align="end">Números utilizados: {{headCircumference.value.length}} de 6</mat-hint>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="text" #bloodPressure name="bloodPressure" [(ngModel)]="data.visit.bloodPressure"
+            <input matInput type="text" #bloodPressure name="bloodPressure" [(ngModel)]="data.consultation.bloodPressure"
               placeholder="Tensión arterial" maxlength="7">
             <mat-hint align="start">Ej: 120/80</mat-hint>
             <mat-hint align="end">Caracteres utilizados: {{bloodPressure.value.length}} de 7</mat-hint>
@@ -52,7 +52,7 @@
 
     <mat-card-actions>
       <button type="submit" mat-raised-button color="primary" [disabled]="bottomSheetForm.form.invalid">Guardar</button>
-      <button type="button" mat-raised-button color="warn" *ngIf="data.visit.id" (click)="deleteVisit()">Eliminar</button>
+      <button type="button" mat-raised-button color="warn" *ngIf="data.consultation.id" (click)="deleteConsultation()">Eliminar</button>
       <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
         <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
       </button>

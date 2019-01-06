@@ -29,7 +29,7 @@ export class VitalSignsListComponent implements OnInit {
   }
 
   vitalSignsRecordsParser(data: any): VitalSigns[] {
-    let vitalSignsRecords: VitalSigns[] = []
+    const vitalSignsRecords: VitalSigns[] = [];
     data.forEach((vitalSignsRecord: any) => {
       vitalSignsRecords.push(this.appService.vitalSignsRecordParser(vitalSignsRecord));
     });

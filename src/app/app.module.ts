@@ -34,7 +34,7 @@ import { AppointmentFormComponent, AppointmentCancelComponent } from './appointm
 import { AppointmentFiltersComponent } from './appointments/appointment-list/appointment-list.component';
 import { PatientFormComponent } from './patients/patient-form/patient-form.component';
 import { PatientDeleteComponent } from './patients/patient-clinic-history/patient-clinic-history.component';
-import { VisitFormComponent, VisitDeleteComponent } from './visits/visit-form/visit-form.component';
+import { ConsultationFormComponent, ConsultationDeleteComponent } from './consultations/consultation-form/consultation-form.component';
 import { VaccineApplicationFormComponent } from './vaccinations/vaccine-application-form/vaccine-application-form.component';
 import { VitalSignsFormComponent, VitalSignsDeleteComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
 import { ScheduleFormComponent, ScheduleDeleteComponent } from './schedules/schedule-form/schedule-form.component';
@@ -62,8 +62,8 @@ const appRoutes: Routes = [
     ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
-    VisitDeleteComponent,
-    VisitFormComponent,
+    ConsultationDeleteComponent,
+    ConsultationFormComponent,
     VitalSignsDeleteComponent,
     VitalSignsFormComponent,
     UserFormComponent,
@@ -108,8 +108,8 @@ const appRoutes: Routes = [
     ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
-    VisitDeleteComponent,
-    VisitFormComponent,
+    ConsultationDeleteComponent,
+    ConsultationFormComponent,
     VitalSignsDeleteComponent,
     VitalSignsFormComponent,
     UserFormComponent,

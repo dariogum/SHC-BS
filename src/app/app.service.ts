@@ -6,7 +6,7 @@ import { Appointment } from './appointments/appointment.service';
 import { Patient, PatientService } from './patients/patient.service';
 import { User, UserService } from './users/user.service';
 import { Schedule, ScheduleService } from './schedules/schedule.service';
-import { Visit } from './visits/visit.service';
+import { Consultation } from './consultations/consultation.service';
 import { VitalSigns } from './vital-signs/vital-signs.service';
 
 @Injectable({
@@ -77,38 +77,28 @@ export class AppService {
 
   patientParser(data: any): Patient {
     const patient: Patient = {
-      apartment: data.attributes.apartment,
-      apgar1: data.attributes.apgar1,
-      apgar2: data.attributes.apgar2,
-      birthday: data.attributes.birthday,
-      brothers: data.attributes.brothers,
-      city: data.attributes.city,
-      comment: data.attributes.comment,
-      country: data.attributes.country,
-      documentNumber: data.attributes.documentNumber,
-      documentType: data.attributes.documentType,
-      email: data.attributes.email,
-      father: data.attributes.father,
-      floor: data.attributes.floor,
-      gender: data.attributes.gender,
-      gestationalAge: data.attributes.gestationalAge,
       id: data.id,
+      oldId: data.attributes.old_id,
       lastname: data.attributes.lastname,
       name: data.attributes.name,
-      number: data.attributes.number,
-      mother: data.attributes.mother,
-      oldId: data.attributes.oldId,
-      others: data.attributes.others,
-      phone1: data.attributes.phone1,
-      phone2: data.attributes.phone2,
+      documentType: data.attributes.document_type,
+      documentNumber: data.attributes.document_number,
+      birthdate: data.attributes.birthdate,
+      sex: data.attributes.sex,
+      birthType: data.attributes.birth_type,
+      birthWeight: data.attributes.birth_weight,
+      bloodType: data.attributes.blood_type,
+      rhFactor: data.attributes.rh_factor,
+      phone1: data.attributes.phone_1,
+      phone2: data.attributes.phone_2,
+      email: data.attributes.email,
       street: data.attributes.street,
+      streetNumber: data.attributes.number,
+      floor: data.attributes.floor,
+      flat: data.attributes.flat,
+      country: data.attributes.country,
       state: data.attributes.state,
-      socialSecurity1: data.attributes.socialSecurity1,
-      socialSecurityPlan1: data.attributes.socialSecurityPlan1,
-      socialSecurityNumber1: data.attributes.socialSecurityNumber1,
-      socialSecurity2: data.attributes.socialSecurity2,
-      socialSecurityPlan2: data.attributes.socialSecurityPlan2,
-      socialSecurityNumber2: data.attributes.socialSecurityNumber2,
+      city: data.attributes.city,
     };
     return patient;
   }
@@ -133,7 +123,7 @@ export class AppService {
       active: data.attributes.active,
       id: data.id,
       name: data.attributes.name,
-      periodic: data.attributes.periodic,
+      periodicity: data.attributes.periodic,
       professionals: [],
     };
     if (data.relationships.professionals.length) {
@@ -144,14 +134,14 @@ export class AppService {
     return schedule;
   }
 
-  visitParser(data: any): Visit {
-    const visit: Visit = {
+  consultationParser(data: any): Consultation {
+    const consultation: Consultation = {
       date: data.attributes.date,
       id: data.id,
       diagnostic: data.attributes.diagnostic,
       treatment: data.attributes.treatment,
     };
-    return visit;
+    return consultation;
   }
 
   vitalSignsRecordParser(data: any): VitalSigns {

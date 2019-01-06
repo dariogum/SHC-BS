@@ -22,12 +22,12 @@
       <mat-hint *ngIf="searching">Buscando...</mat-hint>
       <mat-hint align="end" *ngIf="patients">{{patients.length}} pacientes encontrados</mat-hint>
     </mat-form-field>
-    <h4 *ngIf="!patients.length" style="text-align: center;">No hay pacientes registrados aún</h4>
+    <h4 *ngIf="!patients.length" style="text-align: center;">Nada para mostrar</h4>
     <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
       <mat-list-item *ngFor="let patient of patients" (click)="goToPatientClinicHistory(patient)">
         <mat-icon matListIcon>person</mat-icon>
         <h3 matLine>{{patient.lastname}} {{patient.name}}</h3>
-        <p matLine>Edad: <span class="mat-body-2">{{patient.birthday | age}}</span></p>
+        <p matLine>Edad: <span class="mat-body-2">{{patient.birthdate | age}}</span></p>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>

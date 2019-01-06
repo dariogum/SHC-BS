@@ -30,7 +30,7 @@
             Información personal
           </mat-panel-title>
           <mat-panel-description>
-            Edad: {{patient.birthday | age}}
+            Edad: {{patient.birthdate | age}}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <app-patient-personal-information [patient]="patient"></app-patient-personal-information>
@@ -52,9 +52,9 @@
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          Visitas
+          Consultas
         </mat-expansion-panel-header>
-        <app-visit-list [patient]="patient"></app-visit-list>
+        <app-consultation-list [patient]="patient"></app-consultation-list>
       </mat-expansion-panel>
 
       <mat-expansion-panel>

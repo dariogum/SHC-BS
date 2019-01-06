@@ -12,7 +12,7 @@ export class Schedule {
   active: boolean;
   id: number;
   name: string;
-  periodic: boolean;
+  periodicity: number;
   professionals: User[];
 
   constructor() {
@@ -21,8 +21,8 @@ export class Schedule {
 }
 
 export const SCHEDULES: Schedule[] = [
-  { active: true, id: 1, name: 'Agenda 1', periodic: true, professionals: [] },
-  { active: true, id: 2, name: 'Agenda 2', periodic: false, professionals: [] },
+  { active: true, id: 1, name: 'Agenda 1', periodicity: 1, professionals: [] },
+  { active: true, id: 2, name: 'Agenda 2', periodicity: 2, professionals: [] },
 ];
 
 @Injectable({

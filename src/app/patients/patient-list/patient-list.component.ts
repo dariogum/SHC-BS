@@ -33,7 +33,7 @@ export class PatientListComponent implements OnInit {
     this.searchTerm$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      tap(_ => this.searching = true),
+      tap(term => { term.length ? this.searching = true : this.searching = false; }),
       switchMap(term => this.patientService.search(term))
     ).subscribe(
       patientsData => { this.patients = this.patientsParser(patientsData); this.searching = false; },
@@ -43,9 +43,11 @@ export class PatientListComponent implements OnInit {
 
   patientsParser(patientsData: any): Patient[] {
     const patients: Patient[] = [];
-    patientsData.data.forEach((patient: any) => {
-      patients.push(this.appService.patientParser(patient));
-    });
+    if (patientsData.data) {
+      patientsData.data.forEach((patient: any) => {
+        patients.push(this.appService.patientParser(patient));
+      });
+    }
     return patients;
   }
 
@@ -62,6 +64,7 @@ export class PatientListComponent implements OnInit {
   }
 
   search(term: string) {
+    term = term.replace(' ', '').toLowerCase();
     this.searchTerm$.next(term);
   }
 

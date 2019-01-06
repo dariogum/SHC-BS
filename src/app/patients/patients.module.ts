@@ -31,7 +31,7 @@ import { AgePipe } from './../age.pipe';
 import { PatientsRoutingModule } from './patients-routing.module';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientClinicHistoryComponent } from './patient-clinic-history/patient-clinic-history.component';
-import { VisitListComponent } from './../visits/visit-list/visit-list.component';
+import { ConsultationListComponent } from './../consultations/consultation-list/consultation-list.component';
 import { VitalSignsListComponent } from './../vital-signs/vital-signs-list/vital-signs-list.component';
 import { PatientPersonalInformationComponent } from './patient-personal-information/patient-personal-information.component';
 import { PatientBackgroundComponent } from './patient-background/patient-background.component';
@@ -41,7 +41,7 @@ import { PatientBackgroundComponent } from './patient-background/patient-backgro
     AgePipe,
     PatientListComponent,
     PatientClinicHistoryComponent,
-    VisitListComponent,
+    ConsultationListComponent,
     VitalSignsListComponent,
     PatientPersonalInformationComponent,
     PatientBackgroundComponent,

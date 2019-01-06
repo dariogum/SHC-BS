@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Patient, PatientService } from './../patient.service';
 import { MatAccordion, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
 import { AppService } from 'src/app/app.service';
+import { switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-patient-clinic-history',
@@ -28,7 +30,8 @@ export class PatientClinicHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.patientService.read(parseInt(this.route.snapshot.paramMap.get('id'))).subscribe(
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.patientService.read(id).subscribe(
       patientData => { this.patient = this.appService.patientParser(patientData.data); this.loading = false; },
       error => this.snackBar.open('Ocurrió un error al cargar la historia clínica del paciente', 'OK', { duration: 2500 })
     );

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { Patient, PatientService, BirthType } from './../patient.service';
+import { Patient, PatientService } from './../patient.service';
 import { SocialSecurity, SocialSecurityService } from './../social-security.service';
 import { Country, State, City, CountryService } from '../country.service';
 
@@ -12,7 +12,6 @@ import { Country, State, City, CountryService } from '../country.service';
   styleUrls: ['./patient-personal-information.component.css']
 })
 export class PatientPersonalInformationComponent implements OnInit {
-  birthTypes: BirthType[] = [];
   cities: City[] = [];
   countries: Country[] = [];
   filteredSocialSecurities: SocialSecurity[] = [];
@@ -33,7 +32,6 @@ export class PatientPersonalInformationComponent implements OnInit {
     this.readCountries();
     this.readStates();
     this.readCities();
-    this.readBirthTypes();
   }
 
   filterSocialSecurities(event): void {
@@ -66,10 +64,6 @@ export class PatientPersonalInformationComponent implements OnInit {
 
   readCities(): void {
     this.countryService.readAllCities().subscribe(cities => this.cities = cities);
-  }
-
-  readBirthTypes(): void {
-    this.patientService.readAllBirthTypes().subscribe(birthType => this.birthTypes = birthType);
   }
 
   update(form: NgForm): void {
