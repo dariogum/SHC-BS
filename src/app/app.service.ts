@@ -3,11 +3,12 @@ import { MatBottomSheet, MatSnackBar } from '@angular/material';
 import { forkJoin } from 'rxjs';
 
 import { Appointment } from './appointments/appointment.service';
-import { Patient, PatientService } from './patients/patient.service';
+import { Patient, PatientService, PatientSocialSecurity, PatientBackground } from './patients/patient.service';
 import { User, UserService } from './users/user.service';
 import { Schedule, ScheduleService } from './schedules/schedule.service';
 import { Consultation } from './consultations/consultation.service';
 import { VitalSigns } from './vital-signs/vital-signs.service';
+import { SocialSecurity } from './patients/social-security.service';
 
 @Injectable({
   providedIn: 'root'
@@ -101,6 +102,34 @@ export class AppService {
       city: data.attributes.city,
     };
     return patient;
+  }
+
+  patientBackgroundParser(data: any, patient: Patient): PatientBackground {
+    const patientBackground: PatientBackground = {
+      id: data.id,
+      patient: patient,
+      apgar1: data.attributes.apgar_1,
+      apgar2: data.attributes.apgar_2,
+      gestationalAge: data.attributes.gestational_age,
+      comments: data.attributes.comments,
+      father: data.attributes.father,
+      mother: data.attributes.mother,
+      brothers: data.attributes.brothers,
+      others: data.attributes.others,
+    };
+    return patientBackground;
+  }
+
+  patientSocialSecurityParser(data: any, patient: Patient): PatientSocialSecurity {
+    const patientSocialSecurity: PatientSocialSecurity = {
+      id: data.id,
+      patient: patient,
+      socialSecurity: data.attributes.social_security.id,
+      plan: data.attributes.plan,
+      socialSecurtyId: data.attributes.social_security.id,
+      active: data.attributes.active,
+    };
+    return patientSocialSecurity;
   }
 
   userParser(data: any): User {

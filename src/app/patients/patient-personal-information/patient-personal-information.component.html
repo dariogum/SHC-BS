@@ -74,7 +74,7 @@
           <mat-form-field>
             <input matInput type="text" #socialSecurity1="ngModel" name="socialSecurity1" placeholder="Obra social"
               aria-label="Obra social" [(ngModel)]="patient.socialSecurity1" [matAutocomplete]="auto" (keyup)="filterSocialSecurities($event)"
-              (blur)="verifySocialSecuritySelection(personalInformationForm)" (blur)="update(personalInformationForm)">
+              (blur)="verifySocialSecuritySelection($event)" (blur)="update(personalInformationForm)">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
                 {{socialSecurity.name}}
@@ -97,7 +97,7 @@
           <mat-form-field>
             <input matInput type="text" #socialSecurity2="ngModel" name="socialSecurity2" placeholder="Obra social alternativa"
               aria-label="Obra social alternativa" [(ngModel)]="patient.socialSecurity2" [matAutocomplete]="auto"
-              (keyup)="filterSocialSecurities($event)" (blur)="verifySocialSecuritySelection(personalInformationForm)"
+              (keyup)="filterSocialSecurities($event)" (blur)="verifySocialSecuritySelection($event)"
               (blur)="update(personalInformationForm)">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
               <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">

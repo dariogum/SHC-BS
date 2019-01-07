@@ -2,9 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { Patient, PatientService } from './../patient.service';
+import { Patient, PatientSocialSecurity, PatientService } from './../patient.service';
 import { SocialSecurity, SocialSecurityService } from './../social-security.service';
 import { Country, State, City, CountryService } from '../country.service';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-patient-personal-information',
@@ -16,11 +17,13 @@ export class PatientPersonalInformationComponent implements OnInit {
   countries: Country[] = [];
   filteredSocialSecurities: SocialSecurity[] = [];
   @Input() patient: Patient;
+  patientSocialSecurities: PatientSocialSecurity[] = [];
   socialSecurities: SocialSecurity[] = [];
   states: State[] = [];
   today = new Date();
 
   constructor(
+    private appService: AppService,
     private countryService: CountryService,
     private patientService: PatientService,
     private snackBar: MatSnackBar,
@@ -32,6 +35,7 @@ export class PatientPersonalInformationComponent implements OnInit {
     this.readCountries();
     this.readStates();
     this.readCities();
+    this.readPatientSocialSecurities();
   }
 
   filterSocialSecurities(event): void {
@@ -44,9 +48,25 @@ export class PatientPersonalInformationComponent implements OnInit {
     return socialSecurity ? socialSecurity.name : undefined;
   }
 
-  verifySocialSecuritySelection(form: NgForm) {
-    if (typeof this.patient.socialSecurity1 === 'string') {
-      form.form.controls['socialSecurity1'].setErrors({ notObject: true });
+  readPatientSocialSecurities() {
+    this.patientService.readPatientSocialSecurities(this.patient).subscribe(
+      patientSocialSecurities => this.patientSocialSecurities = this.patientSocialSecuritiesParser(patientSocialSecurities)
+    );
+  }
+
+  patientSocialSecuritiesParser(patientsSocialSecuritiesData: any): PatientSocialSecurity[] {
+    const patientSocialSecurities: PatientSocialSecurity[] = [];
+    if (patientsSocialSecuritiesData.data) {
+      patientsSocialSecuritiesData.data.forEach((patientSocialSecurity: any) => {
+        patientSocialSecurities.push(this.appService.patientSocialSecurityParser(patientSocialSecurity, this.patient));
+      });
+    }
+    return patientSocialSecurities;
+  }
+
+  verifySocialSecuritySelection(event) {
+    if (typeof event.value === 'string') {
+      event.target.setErrors({ notObject: true });
     }
   }
 

@@ -41,6 +41,28 @@ export class Patient {
   }
 }
 
+export class PatientBackground {
+  id: number;
+  patient: Patient;
+  apgar1: number;
+  apgar2: number;
+  gestationalAge: number;
+  comments: string;
+  father: string;
+  mother: string;
+  brothers: string;
+  others: string;
+}
+
+export class PatientSocialSecurity {
+  id: number;
+  patient: Patient;
+  socialSecurity: SocialSecurity;
+  plan: string;
+  socialSecurtyId: string;
+  active: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -80,6 +102,14 @@ export class PatientService {
     return of([new Patient]);
   }
 
+  readPatientBackground(patient: Patient): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiURL + `patientsbackground/${patient.id}`);
+  }
+
+  readPatientSocialSecurities(patient: Patient): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiURL + `patientssocialsecurity/${patient.id}`);
+  }
+
   patientToJson(patient: Patient) {
     const city = patient.city ? patient.city.id : null;
     const country = patient.country ? patient.country.id : null;
@@ -112,6 +142,44 @@ export class PatientService {
         'id': patient.id,
         'relationships': [],
         'type': 'patient',
+      },
+    };
+  }
+
+  patientBackgroundToJson(patientBackground: PatientBackground) {
+    return {
+      'data': {
+        'attributes': {
+          'patient': patientBackground.patient.id,
+          'apgar_1': patientBackground.apgar1,
+          'apgar_2': patientBackground.apgar2,
+          'gestational_age': patientBackground.gestationalAge,
+          'comments': patientBackground.comments,
+          'father': patientBackground.father,
+          'mother': patientBackground.mother,
+          'brothers': patientBackground.brothers,
+          'others': patientBackground.others,
+        },
+        'id': patientBackground.id,
+        'relationships': [],
+        'type': 'patientBackground',
+      },
+    };
+  }
+
+  patientSocialSecurityToJson(patientSocialSecurity: PatientSocialSecurity) {
+    return {
+      'data': {
+        'attributes': {
+          'patient': patientSocialSecurity.patient.id,
+          'social_security': patientSocialSecurity.socialSecurity.id,
+          'plan': patientSocialSecurity.plan,
+          'social_security_id': patientSocialSecurity.socialSecurtyId,
+          'active': patientSocialSecurity.active,
+        },
+        'id': patientSocialSecurity.id,
+        'relationships': [],
+        'type': 'patientSocialSecurity',
       },
     };
   }
