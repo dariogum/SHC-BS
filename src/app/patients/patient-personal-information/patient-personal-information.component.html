@@ -70,54 +70,15 @@
         </mat-form-field>
       </mat-tab>
       <mat-tab label="Obra social">
-        <div>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurity1="ngModel" name="socialSecurity1" placeholder="Obra social"
-              aria-label="Obra social" [(ngModel)]="patient.socialSecurity1" [matAutocomplete]="auto" (keyup)="filterSocialSecurities($event)"
-              (blur)="verifySocialSecuritySelection($event)" (blur)="update(personalInformationForm)">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
-                {{socialSecurity.name}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-hint align="start">Escriba y seleccione la obra social del listado</mat-hint>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurityPlan1 name="socialSecurityPlan1" [(ngModel)]="patient.socialSecurityPlan1"
-              maxlength="256" placeholder="Plan de la obra social" [disabled]="!patient.socialSecurity1" (blur)="update(personalInformationForm)">
-            <mat-hint align="end">Caracteres utilizados: {{socialSecurityPlan1.value.length}} de 256</mat-hint>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurityNumber1 name="socialSecurityNumber1" [(ngModel)]="patient.socialSecurityNumber1"
-              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity1" (blur)="update(personalInformationForm)">
-            <mat-hint align="end">Caracteres utilizados: {{socialSecurityNumber1.value.length}} de 256</mat-hint>
-          </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurity2="ngModel" name="socialSecurity2" placeholder="Obra social alternativa"
-              aria-label="Obra social alternativa" [(ngModel)]="patient.socialSecurity2" [matAutocomplete]="auto"
-              (keyup)="filterSocialSecurities($event)" (blur)="verifySocialSecuritySelection($event)"
-              (blur)="update(personalInformationForm)">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-              <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
-                {{socialSecurity.name}}
-              </mat-option>
-            </mat-autocomplete>
-            <mat-hint align="start">Escriba y seleccione la obra social del listado</mat-hint>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurityPlan2 name="socialSecurityPlan2" [(ngModel)]="patient.socialSecurityPlan2"
-              maxlength="256" placeholder="Plan de la obra social alternativa" [disabled]="!patient.socialSecurity2"
-              (blur)="update(personalInformationForm)">
-            <mat-hint align="end">Caracteres utilizados: {{socialSecurityPlan2.value.length}} de 256</mat-hint>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="text" #socialSecurityNumber2 name="socialSecurityNumber2" [(ngModel)]="patient.socialSecurityNumber2"
-              maxlength="256" placeholder="Número de afiliado" [disabled]="!patient.socialSecurity2" (blur)="update(personalInformationForm)">
-            <mat-hint align="end">Caracteres utilizados: {{socialSecurityNumber2.value.length}} de 256</mat-hint>
-          </mat-form-field>
-        </div>
+        <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
+          <mat-list-item *ngFor="let patientSocialSecurity of patientSocialSecurities" (click)="openPatientSocialSecurityBottomSheet(patientSocialSecurity)">
+            <h3 matLine>{{patientSocialSecurity.name}}</h3>
+            <p matLine>Plan: <span class="mat-body-2">{{patientSocialSecurity.plan}}</span></p>
+            <p matLine>Identificación de afiliado: <span class="mat-body-2">{{patientSocialSecurity.id}}</span></p>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+        <button mat-raised-button color="primary" (click)="openPatientSocialSecurityBottomSheet(newPatientSocialSecurity)">Registrar una obra social</button>
       </mat-tab>
       <mat-tab label="Contacto">
         <mat-form-field>

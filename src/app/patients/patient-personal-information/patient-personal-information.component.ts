@@ -6,6 +6,7 @@ import { Patient, PatientSocialSecurity, PatientService } from './../patient.ser
 import { SocialSecurity, SocialSecurityService } from './../social-security.service';
 import { Country, State, City, CountryService } from '../country.service';
 import { AppService } from 'src/app/app.service';
+import { PatientSocialSecurityFormComponent } from './../patient-social-security-form/patient-social-security-form.component';
 
 @Component({
   selector: 'app-patient-personal-information',
@@ -15,10 +16,9 @@ import { AppService } from 'src/app/app.service';
 export class PatientPersonalInformationComponent implements OnInit {
   cities: City[] = [];
   countries: Country[] = [];
-  filteredSocialSecurities: SocialSecurity[] = [];
+  newPatientSocialSecurity: PatientSocialSecurity = new PatientSocialSecurity;
   @Input() patient: Patient;
   patientSocialSecurities: PatientSocialSecurity[] = [];
-  socialSecurities: SocialSecurity[] = [];
   states: State[] = [];
   today = new Date();
 
@@ -27,21 +27,14 @@ export class PatientPersonalInformationComponent implements OnInit {
     private countryService: CountryService,
     private patientService: PatientService,
     private snackBar: MatSnackBar,
-    private socialSecurityService: SocialSecurityService,
   ) { }
 
   ngOnInit() {
-    this.readSocialSecurities();
+    this.newPatientSocialSecurity.patient = this.patient;
     this.readCountries();
     this.readStates();
     this.readCities();
     this.readPatientSocialSecurities();
-  }
-
-  filterSocialSecurities(event): void {
-    this.filteredSocialSecurities = this.socialSecurities.filter(
-      socialSecurity => socialSecurity.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
   }
 
   displayFn(socialSecurity?: SocialSecurity): string | undefined {
@@ -70,10 +63,6 @@ export class PatientPersonalInformationComponent implements OnInit {
     }
   }
 
-  readSocialSecurities(): void {
-    this.socialSecurityService.readAll().subscribe(socialSecurities => this.socialSecurities = socialSecurities);
-  }
-
   readCountries(): void {
     this.countryService.readAllCountries().subscribe(countries => this.countries = countries);
   }
@@ -97,6 +86,11 @@ export class PatientPersonalInformationComponent implements OnInit {
       _ => { },
       error => this.snackBar.open('Ocurrió un error al modificar los datos del paciente', 'OK', { duration: 2500 })
     );
+  }
+
+  openPatientSocialSecurityBottomSheet(patientSocialSecurity: PatientSocialSecurity) {
+    const data = { title: 'Información de la obra social del paciente', patientSocialSecurity: patientSocialSecurity };
+    this.appService.openBottomSheet(PatientSocialSecurityFormComponent, data);
   }
 
 }

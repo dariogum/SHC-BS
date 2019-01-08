@@ -110,6 +110,18 @@ export class PatientService {
     return this.http.get<any[]>(environment.apiURL + `patientssocialsecurity/${patient.id}`);
   }
 
+  createPatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<any> {
+    return this.http.post<any>(environment.apiURL + `patientssocialsecurity`, this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
+  }
+
+  updatePatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<any> {
+    return this.http.put<any>(environment.apiURL + `patientssocialsecurity/${patientSocialSecurity.id}`, this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
+  }
+
+  deletePatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<{}> {
+    return this.http.delete(environment.apiURL + `patientssocialsecurity/${patientSocialSecurity.id}`, httpOptions);
+  }
+
   patientToJson(patient: Patient) {
     const city = patient.city ? patient.city.id : null;
     const country = patient.country ? patient.country.id : null;

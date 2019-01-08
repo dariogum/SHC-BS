@@ -39,6 +39,7 @@ import { VaccineApplicationFormComponent } from './vaccinations/vaccine-applicat
 import { VitalSignsFormComponent, VitalSignsDeleteComponent } from './vital-signs/vital-signs-form/vital-signs-form.component';
 import { ScheduleFormComponent, ScheduleDeleteComponent } from './schedules/schedule-form/schedule-form.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
+import { PatientSocialSecurityFormComponent, PatientSocialSecurityDeleteComponent } from './patients/patient-social-security-form/patient-social-security-form.component';
 
 import localeEsAr from '@angular/common/locales/es-AR';
 registerLocaleData(localeEsAr, 'es-AR');
@@ -59,6 +60,8 @@ const appRoutes: Routes = [
     AppointmentFormComponent,
     PatientDeleteComponent,
     PatientFormComponent,
+    PatientSocialSecurityFormComponent,
+    PatientSocialSecurityDeleteComponent,
     ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,
@@ -105,6 +108,8 @@ const appRoutes: Routes = [
     AppointmentFiltersComponent,
     PatientDeleteComponent,
     PatientFormComponent,
+    PatientSocialSecurityFormComponent,
+    PatientSocialSecurityDeleteComponent,
     ScheduleDeleteComponent,
     ScheduleFormComponent,
     VaccineApplicationFormComponent,

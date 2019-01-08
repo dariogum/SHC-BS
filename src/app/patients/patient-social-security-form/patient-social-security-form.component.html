@@ -1,0 +1,36 @@
+<form #bottomSheetForm="ngForm" (ngSubmit)="onSubmit()">
+    <mat-card class="mat-elevation-z0">
+      <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput type="text" #socialSecurity="ngModel" name="socialSecurity" placeholder="Obra social"
+            aria-label="Obra social" [(ngModel)]="data.patientSocialSecurity.socialSecurity" [matAutocomplete]="auto" (keyup)="filterSocialSecurities($event)"
+            (blur)="verifySocialSecuritySelection($event)">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let socialSecurity of filteredSocialSecurities" [value]="socialSecurity">
+              {{socialSecurity.name}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-hint align="start">Escriba y seleccione la obra social del listado</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" #plan name="data.patientSocialSecurity.plan" [(ngModel)]="data.patientSocialSecurity.plan"
+            maxlength="256" placeholder="Plan de la obra social" [disabled]="!socialSecurity">
+          <mat-hint align="end">Caracteres utilizados: {{plan.value.length}} de 256</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" #socialSecurityId name="socialSecurityId" [(ngModel)]="data.patientSocialSecurity.socialSecurityId"
+            maxlength="256" placeholder="Identificación de afiliado" [disabled]="!socialSecurity">
+          <mat-hint align="end">Caracteres utilizados: {{socialSecurityId.value.length}} de 256</mat-hint>
+        </mat-form-field>
+        <mat-checkbox #active name="active" [(ngModel)]="data.patientSocialSecurity.active">Activa</mat-checkbox>
+      </mat-card-content>
+      <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary" [disabled]="bottomSheetForm.form.invalid">Guardar</button>
+        <button type="button" mat-raised-button color="warn" *ngIf="data.patientSocialSecurity.id" (click)="deletePatientSocialSecurity()">Eliminar</button>
+        <button type="button" mat-icon-button class="close-button" matTooltip="Cerrar" (click)="dismissBottomSheet()">
+          <mat-icon aria-label="Cerrar el formulario">close</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
