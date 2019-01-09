@@ -59,7 +59,7 @@ export class PatientSocialSecurity {
   patient: Patient;
   socialSecurity: SocialSecurity;
   plan: string;
-  socialSecurtyId: string;
+  socialSecurityId: string;
   active: boolean;
 }
 
@@ -111,11 +111,13 @@ export class PatientService {
   }
 
   createPatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<any> {
-    return this.http.post<any>(environment.apiURL + `patientssocialsecurity`, this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
+    return this.http.post<any>(environment.apiURL + `patientssocialsecurity`,
+      this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
   }
 
   updatePatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<any> {
-    return this.http.put<any>(environment.apiURL + `patientssocialsecurity/${patientSocialSecurity.id}`, this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
+    return this.http.put<any>(environment.apiURL + `patientssocialsecurity/${patientSocialSecurity.id}`,
+      this.patientSocialSecurityToJson(patientSocialSecurity), httpOptions);
   }
 
   deletePatientSocialSecurity(patientSocialSecurity: PatientSocialSecurity): Observable<{}> {
@@ -186,7 +188,7 @@ export class PatientService {
           'patient': patientSocialSecurity.patient.id,
           'social_security': patientSocialSecurity.socialSecurity.id,
           'plan': patientSocialSecurity.plan,
-          'social_security_id': patientSocialSecurity.socialSecurtyId,
+          'social_security_id': patientSocialSecurity.socialSecurityId,
           'active': patientSocialSecurity.active,
         },
         'id': patientSocialSecurity.id,

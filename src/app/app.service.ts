@@ -8,7 +8,7 @@ import { User, UserService } from './users/user.service';
 import { Schedule, ScheduleService } from './schedules/schedule.service';
 import { Consultation } from './consultations/consultation.service';
 import { VitalSigns } from './vital-signs/vital-signs.service';
-import { SocialSecurity } from './patients/social-security.service';
+import { SocialSecurity, SocialSecurityService } from './patients/social-security.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,7 @@ export class AppService {
     private patientService: PatientService,
     private userService: UserService,
     private scheduleService: ScheduleService,
+    private socialSecurityService: SocialSecurityService,
   ) { }
 
   openBottomSheet(formComponent: any, data: any): void {
@@ -124,9 +125,9 @@ export class AppService {
     const patientSocialSecurity: PatientSocialSecurity = {
       id: data.id,
       patient: patient,
-      socialSecurity: data.attributes.social_security.id,
+      socialSecurity: this.socialSecurityParser(data.relationships.socialSecurity.data),
       plan: data.attributes.plan,
-      socialSecurtyId: data.attributes.social_security.id,
+      socialSecurityId: data.attributes.social_security_id,
       active: data.attributes.active,
     };
     return patientSocialSecurity;
@@ -183,5 +184,14 @@ export class AppService {
       temperature: data.attributes.temperature,
     };
     return vitalSignsRecord;
+  }
+
+  socialSecurityParser(data: any): SocialSecurity {
+    const socialSecurity: SocialSecurity = {
+      id: data.id,
+      name: data.attributes.name,
+      agreement: data.attributes.agreement,
+    };
+    return socialSecurity;
   }
 }

@@ -30,15 +30,10 @@ export class PatientPersonalInformationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.newPatientSocialSecurity.patient = this.patient;
     this.readCountries();
     this.readStates();
     this.readCities();
     this.readPatientSocialSecurities();
-  }
-
-  displayFn(socialSecurity?: SocialSecurity): string | undefined {
-    return socialSecurity ? socialSecurity.name : undefined;
   }
 
   readPatientSocialSecurities() {
@@ -57,12 +52,6 @@ export class PatientPersonalInformationComponent implements OnInit {
     return patientSocialSecurities;
   }
 
-  verifySocialSecuritySelection(event) {
-    if (typeof event.value === 'string') {
-      event.target.setErrors({ notObject: true });
-    }
-  }
-
   readCountries(): void {
     this.countryService.readAllCountries().subscribe(countries => this.countries = countries);
   }
@@ -76,7 +65,7 @@ export class PatientPersonalInformationComponent implements OnInit {
   }
 
   update(form: NgForm): void {
-    if (form.form.valid && form.form.dirty) {
+    if (form.form.valid && !form.form.pristine) {
       this.updatePatient();
     }
   }
@@ -89,7 +78,11 @@ export class PatientPersonalInformationComponent implements OnInit {
   }
 
   openPatientSocialSecurityBottomSheet(patientSocialSecurity: PatientSocialSecurity) {
-    const data = { title: 'Información de la obra social del paciente', patientSocialSecurity: patientSocialSecurity };
+    const data = {
+      title: 'Información de la obra social del paciente',
+      patient: this.patient,
+      patientSocialSecurity: patientSocialSecurity,
+    };
     this.appService.openBottomSheet(PatientSocialSecurityFormComponent, data);
   }
 

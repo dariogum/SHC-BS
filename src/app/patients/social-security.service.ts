@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from './../../environments/environment';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 export class SocialSecurity {
   id: number;
@@ -7,19 +13,22 @@ export class SocialSecurity {
   agreement: boolean;
 }
 
-export const SOCIALSECURITIES: SocialSecurity[] = [
-  { id: 1, name: 'Obra social de prueba 1', agreement: true },
-  { id: 2, name: 'Obra social de prueba 2', agreement: false },
-];
-
 @Injectable({
   providedIn: 'root'
 })
 export class SocialSecurityService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
-  readAll(): Observable<SocialSecurity[]>{
-    return of(SOCIALSECURITIES);
+  read(id: number): Observable<any> {
+    if (id) {
+      return this.http.get<any>(environment.apiURL + `socialsecurities/${id}`);
+    }
+  }
+
+  readAll(): Observable<any[]> {
+    return this.http.get<any[]>(environment.apiURL + `socialsecurities`);
   }
 }

@@ -19,8 +19,7 @@
           <mat-datepicker touchUi #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
-          <mat-select #sex name="sex" [(ngModel)]="patient.sex" placeholder="Sexo otorgado al nacer"
-            (selectionChange)="update(personalInformationForm)">
+          <mat-select #sex name="sex" [(ngModel)]="patient.sex" placeholder="Sexo otorgado al nacer" (selectionChange)="update(personalInformationForm)">
             <mat-option [value]="1">Masculino</mat-option>
             <mat-option [value]="2">Femenino</mat-option>
           </mat-select>
@@ -70,15 +69,22 @@
         </mat-form-field>
       </mat-tab>
       <mat-tab label="Obra social">
-        <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
-          <mat-list-item *ngFor="let patientSocialSecurity of patientSocialSecurities" (click)="openPatientSocialSecurityBottomSheet(patientSocialSecurity)">
-            <h3 matLine>{{patientSocialSecurity.name}}</h3>
-            <p matLine>Plan: <span class="mat-body-2">{{patientSocialSecurity.plan}}</span></p>
-            <p matLine>Identificación de afiliado: <span class="mat-body-2">{{patientSocialSecurity.id}}</span></p>
-            <mat-divider></mat-divider>
-          </mat-list-item>
-        </mat-list>
-        <button mat-raised-button color="primary" (click)="openPatientSocialSecurityBottomSheet(newPatientSocialSecurity)">Registrar una obra social</button>
+        <mat-card class="mat-elevation-z0">
+          <mat-card-content>
+            <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
+              <mat-list-item *ngFor="let patientSocialSecurity of patientSocialSecurities" (click)="openPatientSocialSecurityBottomSheet(patientSocialSecurity)">
+                <h3 matLine>{{patientSocialSecurity.socialSecurity.name}}</h3>
+                <p matLine>Plan: <span class="mat-body-2">{{patientSocialSecurity.plan}}</span></p>
+                <p matLine>Identificación de afiliado: <span class="mat-body-2">{{patientSocialSecurity.socialSecurityId}}</span></p>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+          <mat-card-actions style="text-align: right;">
+            <button mat-raised-button color="primary" (click)="openPatientSocialSecurityBottomSheet(newPatientSocialSecurity)">Registrar
+              una obra social</button>
+          </mat-card-actions>
+        </mat-card>
       </mat-tab>
       <mat-tab label="Contacto">
         <mat-form-field>

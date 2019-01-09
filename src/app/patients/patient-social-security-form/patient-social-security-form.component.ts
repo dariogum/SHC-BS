@@ -1,8 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA,
+  MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { PatientService, PatientSocialSecurity } from './../patient.service';
 import { SocialSecurity, SocialSecurityService } from './../social-security.service';
+import { AppService } from 'src/app/app.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-patient-social-security-form',
@@ -14,6 +17,7 @@ export class PatientSocialSecurityFormComponent implements OnInit {
   socialSecurities: SocialSecurity[] = [];
 
   constructor(
+    private appService: AppService,
     private bottomSheetRef: MatBottomSheetRef<PatientSocialSecurityFormComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private dialog: MatDialog,
@@ -23,22 +27,48 @@ export class PatientSocialSecurityFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.data.patientSocialSecurity.patient = this.data.patient;
+    this.data.patientSocialSecurity.active = true;
     this.readSocialSecurities();
   }
 
-  
+  displayFn(socialSecurity?: SocialSecurity): string | undefined {
+    return socialSecurity ? socialSecurity.name : undefined;
+  }
+
+  verifySocialSecuritySelection(bottomSheetForm: NgForm, event: any) {
+    if (typeof event.value === 'string') {
+      bottomSheetForm.controls.socialSecurity.setErrors({
+        'notObject': true
+      });
+      bottomSheetForm.controls.socialSecurity.updateValueAndValidity();
+    }
+  }
+
   filterSocialSecurities(event): void {
     this.filteredSocialSecurities = this.socialSecurities.filter(
       socialSecurity => socialSecurity.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
   }
 
+  socialSecuritiesParser(socialSecuritiesData: any): SocialSecurity[] {
+    const socialSecurities: SocialSecurity[] = [];
+    if (socialSecuritiesData.data) {
+      socialSecuritiesData.data.forEach((socialSecurity: any) => {
+        socialSecurities.push(this.appService.socialSecurityParser(socialSecurity));
+      });
+    }
+    return socialSecurities;
+  }
+
   readSocialSecurities(): void {
-    this.socialSecurityService.readAll().subscribe(socialSecurities => this.socialSecurities = socialSecurities);
+    this.socialSecurityService.readAll().subscribe(socialSecurities =>
+      this.socialSecurities = this.socialSecuritiesParser(socialSecurities)
+    );
   }
 
   onSubmit(): void {
-    if (!this.data.patient.id) {
+    if (!this.data.patientSocialSecurity.id) {
       this.createPatientSocialSecurity();
     } else {
       this.updatePatientSocialSecurity();
@@ -104,6 +134,6 @@ export class PatientSocialSecurityDeleteComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PatientSocialSecurityDeleteComponent>
-  ) {}
+  ) { }
 
 }
