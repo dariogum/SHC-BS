@@ -57,6 +57,7 @@ export class PatientListComponent implements OnInit {
   }
 
   readPatients(): void {
+    this.searching = true;
     this.patientService.readAll().subscribe(
       patientsData => { this.patients = this.patientsParser(patientsData); this.searching = false; },
       error => this.snackBar.open('Ocurrió un error al obtener los pacientes', 'OK', { duration: 2500 })

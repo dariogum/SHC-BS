@@ -90,13 +90,13 @@
         <mat-form-field>
           <input matInput type="text" #phone1 name="phone1" [(ngModel)]="patient.phone1" placeholder="Teléfono"
             maxlength="11" pattern="([1-9]{2,4} \d{6,8})" (blur)="update(personalInformationForm)">
-          <mat-hint align="start">Ej: 342 4488996. Sin 0 y sin 15</mat-hint>
+          <mat-hint align="start">Ej: 3482 448899. Sin 0 y sin 15</mat-hint>
           <mat-hint align="end">Caracteres utilizados: {{phone1.value.length}} de 11</mat-hint>
         </mat-form-field>
         <mat-form-field>
           <input matInput type="text" #phone2 name="phone2" [(ngModel)]="patient.phone2" placeholder="Teléfono alternativo"
             maxlength="11" pattern="([1-9]{2,4} \d{6,8})" (blur)="update(personalInformationForm)">
-          <mat-hint align="start">Ej: 342 4488996. Sin 0 y sin 15</mat-hint>
+          <mat-hint align="start">Ej: 3482 448899. Sin 0 y sin 15</mat-hint>
           <mat-hint align="end">Caracteres utilizados: {{phone2.value.length}} de 11</mat-hint>
         </mat-form-field>
         <mat-form-field>
