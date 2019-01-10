@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { GoogleChartsModule } from 'angular-google-charts';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,18 +25,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { AppointmentsRoutingModule } from './appointments-routing.module';
-import { AppointmentListComponent } from './appointment-list/appointment-list.component';
+import { StatsRoutingModule } from './stats-routing.module';
+import { StatsListComponent } from './stats-list/stats-list.component';
 
 @NgModule({
-  declarations: [
-    AppointmentListComponent,
-  ],
+  declarations: [StatsListComponent],
   imports: [
     CommonModule,
-    AppointmentsRoutingModule,
+    StatsRoutingModule,
     FormsModule,
-    HttpClientModule,
+    GoogleChartsModule.forRoot(),
     MatAutocompleteModule,
     MatBottomSheetModule,
     MatButtonModule,
@@ -60,9 +57,6 @@ import { AppointmentListComponent } from './appointment-list/appointment-list.co
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-  ],
-  providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
-  ],
+  ]
 })
-export class AppointmentsModule { }
+export class StatsModule { }

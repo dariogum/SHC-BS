@@ -48,6 +48,7 @@ const appRoutes: Routes = [
   { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule' },
   { path: 'patients', loadChildren: './patients/patients.module#PatientsModule' },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'stats', loadChildren: './stats/stats.module#StatsModule' },
   { path: 'schedules', loadChildren: './schedules/schedules.module#SchedulesModule' },
   { path: '', loadChildren: './authentication/authentication.module#AuthenticationModule' },
 ];

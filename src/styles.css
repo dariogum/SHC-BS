@@ -21,6 +21,13 @@ mat-form-field, mat-checkbox {
     margin: 0 8px 8px;
 }
 
+.bold mat-form-field,
+.bold mat-checkbox,
+.bold mat-expansion-panel-header {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .web mat-form-field {
     width: calc(25% - 16px);
 }

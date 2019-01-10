@@ -19,6 +19,9 @@
       <a mat-list-item routerLink="/schedules" (click)="appService.toggleSidenav()">
         <mat-icon>list_alt</mat-icon>&nbsp;Agendas
       </a>
+      <a mat-list-item routerLink="/stats" (click)="appService.toggleSidenav()">
+        <mat-icon>insert_chart</mat-icon>&nbsp;Estadísticas
+      </a>
       <a mat-list-item routerLink="/users" (click)="appService.toggleSidenav()">
         <mat-icon>people_outline</mat-icon>&nbsp;Usuarios
       </a>
@@ -27,7 +30,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content [ngClass]="appService.layout">
+  <mat-sidenav-content [ngClass]="[appService.layout, appService.seeBoldFont]">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

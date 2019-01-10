@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatBottomSheet, MatSnackBar } from '@angular/material';
-import { forkJoin } from 'rxjs';
 
 import { Appointment } from './appointments/appointment.service';
-import { Patient, PatientService, PatientSocialSecurity, PatientBackground } from './patients/patient.service';
+import { Patient, PatientSocialSecurity, PatientBackground } from './patients/patient.service';
 import { User, UserService } from './users/user.service';
-import { Schedule, ScheduleService } from './schedules/schedule.service';
+import { Schedule } from './schedules/schedule.service';
 import { Consultation } from './consultations/consultation.service';
 import { VitalSigns } from './vital-signs/vital-signs.service';
-import { SocialSecurity, SocialSecurityService } from './patients/social-security.service';
+import { SocialSecurity } from './patients/social-security.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,21 +15,20 @@ import { SocialSecurity, SocialSecurityService } from './patients/social-securit
 export class AppService {
   layout = 'web';
   sidenavOpened = false;
+  seeBoldFont = 'bold';
 
   constructor(
     private bottomSheet: MatBottomSheet,
     private snackBar: MatSnackBar,
-    private patientService: PatientService,
     private userService: UserService,
-    private scheduleService: ScheduleService,
-    private socialSecurityService: SocialSecurityService,
   ) { }
 
   openBottomSheet(formComponent: any, data: any): void {
     const bottomSheetRef = this.bottomSheet.open(formComponent, {
       ariaLabel: data.title,
       data: data,
-      disableClose: true
+      disableClose: true,
+      panelClass: this.seeBoldFont,
     });
 
     bottomSheetRef.afterDismissed().subscribe(bottomSheetData => {
@@ -57,23 +55,13 @@ export class AppService {
       hour: data.attributes.hour,
       id: data.id,
       indications: data.attributes.indications,
-      patient: null,
-      professional: null,
+      patient: this.patientParser(data.relationships.patient.data),
+      professional: this.userParser(data.relationships.professional.data),
       reprogrammed: data.attributes.reprogrammed,
       reminderSent: data.attributes.reminderSent,
-      schedule: null,
+      schedule: this.scheduleParser(data.relationships.schedule.data),
       updatedAt: data.attributes.updatedAt,
     };
-    if (data.attributes.patient && data.attributes.professional && data.attributes.schedule) {
-      const patientData = this.patientService.read(data.attributes.patient);
-      const userData = this.userService.read(data.attributes.professional);
-      const scheduleData = this.scheduleService.read(data.attributes.schedule);
-      forkJoin([patientData, userData, scheduleData]).subscribe(results => {
-        appointment.patient = this.patientParser(results[0]);
-        appointment.professional = this.userParser(results[1]);
-        appointment.schedule = this.scheduleParser(results[2]);
-      });
-    }
     return appointment;
   }
 

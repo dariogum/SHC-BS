@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <span>Estadísticas</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button matTooltip="Abrir el menu" (click)="appService.toggleSidenav()">
+    <mat-icon aria-label="Menu">menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-card class="mat-elevation-z0">
+  <mat-card-content>
+    <mat-list [attr.dense]="appService.layout === 'handset' ? true : null">
+      <mat-list-item (click)="type='LineChart';selectedChart='XMChart'">
+        <mat-icon matListIcon>show_chart</mat-icon>
+        <h3 matLine>Consultas por mes</h3>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+      <mat-list-item (click)="type='BarChart';selectedChart='XOSChart'">
+        <mat-icon matListIcon>bar_chart</mat-icon>
+        <h3 matLine>Consultas por obra social</h3>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
+<mat-card style="margin: 16px; width: calc(100% - 64px);">
+  <div style="text-align: center;">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startPicker" name="start" placeholder="Desde" [(ngModel)]="start" (dateInput)="update(selectedChart)"
+        [max]="end">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #startPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="endPicker" name="end" placeholder="Hasta" [(ngModel)]="end" (dateInput)="update(selectedChart)"
+        [max]="today" [min]="start">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #endPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <google-chart #chart [type]="type" [data]="data" [columnNames]="columnNames" [title]="title" [dynamicResize]="dynamicResize"></google-chart>
+</mat-card>

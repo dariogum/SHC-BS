@@ -34,7 +34,7 @@ export class AppointmentListComponent implements OnInit {
     this.searchTerm$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      tap(_ => this.searching = true),
+      tap(term => { term.length ? this.searching = true : this.searching = false; }),
       switchMap(term => this.appointmentService.search(term))
     ).subscribe(
       appointmentsData => { this.appointments = this.appointmentsParser(appointmentsData); this.searching = false; },
@@ -68,7 +68,7 @@ export class AppointmentListComponent implements OnInit {
   readAppointments(): void {
     if (this.schedule && this.date) {
       this.appointmentService.readAll().subscribe(
-        appointments => this.appointments = appointments,
+        appointmentsData => { this.appointments = this.appointmentsParser(appointmentsData); this.searching = false; },
         error => this.snackBar.open('Ocurrió un error al obtener los turnos', 'OK', { duration: 2500 })
       );
     } else {

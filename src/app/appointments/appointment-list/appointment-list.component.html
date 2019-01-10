@@ -33,13 +33,14 @@
         matTooltip="Limpiar la búsqueda" matSuffix>
         <mat-icon>clear</mat-icon>
       </button>
-      <mat-hint *ngIf="searchInput.value.length < 1">Ingrese al menos 1 caracter</mat-hint>
+      <mat-hint *ngIf="!searching && searchInput.value.length < 1">Ingrese al menos 1 caracter</mat-hint>
       <mat-hint *ngIf="searching">Buscando...</mat-hint>
       <mat-hint align="end" *ngIf="appointments">{{appointments.length}} turnos encontrados</mat-hint>
     </mat-form-field>
     <h4 *ngIf="!schedule" style="text-align: center;">Seleccione una agenda para ver sus turnos</h4>
     <h4 *ngIf="!date" style="text-align: center;">Seleccione una fecha para ver sus turnos</h4>
-    <h4 *ngIf="schedule && date && !appointments.length" style="text-align: center;">No hay turnos registrados aún</h4>
+    <h4 *ngIf="schedule && date && !appointments.length && !searching" style="text-align: center;">No hay turnos registrados aún</h4>
+    <mat-spinner diameter="50" strokeWidth="5" *ngIf="searching"></mat-spinner>
     <mat-list [attr.dense]="appService.layout === 'handset' ? true : null" *ngIf="!filteredAppointments.length">
       <mat-list-item *ngFor="let appointment of appointments" (click)="openAppointmentBottomSheet(appointment)">
         <mat-icon matListIcon [color]="appointment.confirmed ? 'primary' : 'warn'" [matTooltip]="appointment.confirmed ? 'Confirmado' : 'No confirmado'">event</mat-icon>
